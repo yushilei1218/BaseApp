@@ -9,7 +9,7 @@ import com.shileiyu.baseapp.common.base.IBaseView;
 
 public interface HomeConstract {
     interface IPresenter {
-
+        void request();
     }
 
     interface IView extends IBaseView {
@@ -17,6 +17,6 @@ public interface HomeConstract {
     }
 
     interface IModel {
-        
+
     }
 }
