@@ -2,12 +2,13 @@ package com.shileiyu.baseapp.ui.home;
 
 import com.shileiyu.baseapp.common.bean.DiscoveryBean;
 import com.shileiyu.baseapp.common.mvp.BasePresenter;
+import com.shileiyu.baseapp.common.net.observer.NetObserver;
+import com.shileiyu.baseapp.common.net.observer.NetSubscriber;
 import com.shileiyu.baseapp.common.net.NetWork;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
+import io.reactivex.annotations.NonNull;
 
 /**
  * @author shilei.yu
@@ -21,22 +22,29 @@ public class HomePresenter extends BasePresenter<HomeConstract.IView> implements
 
     @Override
     public void request() {
+
         Flowable<DiscoveryBean> discovery = NetWork.sApi.getDiscovery();
         Observable<DiscoveryBean> oDiscovery = NetWork.sApi.getODiscovery();
-        Disposable subscribe1 = oDiscovery.subscribe(new Consumer<DiscoveryBean>() {
+
+        discovery.subscribe(new NetSubscriber<DiscoveryBean>(taskId) {
             @Override
-            public void accept(DiscoveryBean discoveryBean) throws Exception {
+            public void onFailed(Throwable t) {
+
+            }
+
+            @Override
+            public void onNext(DiscoveryBean discoveryBean) {
 
             }
         });
-        Disposable subscribe = discovery.subscribe(new Consumer<DiscoveryBean>() {
+        oDiscovery.subscribe(new NetObserver<DiscoveryBean>(taskId) {
             @Override
-            public void accept(DiscoveryBean discoveryBean) throws Exception {
+            public void onFailed(Throwable e) {
 
             }
-        }, new Consumer<Throwable>() {
+
             @Override
-            public void accept(Throwable throwable) throws Exception {
+            public void onNext(@NonNull DiscoveryBean discoveryBean) {
 
             }
         });
