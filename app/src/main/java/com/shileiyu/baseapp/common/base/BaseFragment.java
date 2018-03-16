@@ -1,0 +1,89 @@
+package com.shileiyu.baseapp.common.base;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+import com.shileiyu.baseapp.common.util.Util;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+/**
+ * @author shilei.yu
+ * @since on 2018/3/16.
+ */
+
+public abstract class BaseFragment extends Fragment implements IBaseView {
+
+    private BaseView mBaseView;
+
+    private Unbinder mUnbinder;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(getLayoutId(), container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mUnbinder = ButterKnife.bind(this, view);
+        mBaseView = new BaseView(this);
+        initView();
+    }
+
+    protected abstract int getLayoutId();
+
+    protected abstract void initView();
+
+    @Override
+    public void onDestroyView() {
+        mUnbinder.unbind();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onHide() {
+        mBaseView.onHide();
+    }
+
+    @Override
+    public void onLoading(CharSequence msg) {
+        mBaseView.onLoading(msg);
+    }
+
+    @Override
+    public void showError(int imgRid, CharSequence msg, CharSequence btnText, View.OnClickListener btnListener) {
+        mBaseView.showError(imgRid, msg, btnText, btnListener);
+    }
+
+    @Override
+    public void showDialogLoading(String msg) {
+        mBaseView.showDialogLoading(msg);
+    }
+
+    @Override
+    public void hideDialogLoading() {
+        mBaseView.hideDialogLoading();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Util.toast(msg);
+    }
+
+    @Override
+    public void doLogin(int code, String msg) {
+        mBaseView.doLogin(code, msg);
+    }
+
+    @Override
+    public <T extends View> T findView(int rid) {
+        return mBaseView.findView(rid);
+    }
+}
