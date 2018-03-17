@@ -21,4 +21,8 @@ public interface IBaseView extends IOperateView {
     <T extends View> T findView(int rid);
 
     Activity getActivity();
+
+    String getTAG();
+
+    int taskId();
 }

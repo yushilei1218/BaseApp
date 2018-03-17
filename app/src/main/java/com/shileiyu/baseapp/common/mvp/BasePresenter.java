@@ -14,7 +14,7 @@ public abstract class BasePresenter<T extends IBaseView> implements IBasePresent
 
     public BasePresenter(T view) {
         this.view = view;
-        taskId = view.hashCode();
+        taskId = view.taskId();
     }
 
     @Override
@@ -24,6 +24,5 @@ public abstract class BasePresenter<T extends IBaseView> implements IBasePresent
 
     @Override
     public void onDestroy() {
-        NetPool.cancel(taskId);
     }
 }

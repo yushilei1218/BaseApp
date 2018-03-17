@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.Util;
 
 import butterknife.ButterKnife;
@@ -22,7 +23,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     private BaseView mBaseView;
 
-    private Unbinder mUnbinder;
+    private Unbinder mBinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,8 +33,10 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mUnbinder = ButterKnife.bind(this, view);
+        mBinder = ButterKnife.bind(this, view);
+
         mBaseView = new BaseView(this);
+
         initView();
     }
 
@@ -42,9 +45,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     protected abstract void initView();
 
     @Override
-    public void onDestroyView() {
-        mUnbinder.unbind();
-        super.onDestroyView();
+    public void onDestroy() {
+        if (mBinder != null) {
+            mBinder.unbind();
+        }
+        NetPool.cancel(taskId());
+        super.onDestroy();
     }
 
     @Override
@@ -85,5 +91,19 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public <T extends View> T findView(int rid) {
         return mBaseView.findView(rid);
+    }
+
+    @Override
+    public String getTAG() {
+        String tag = this.getClass().getSimpleName();
+        if (tag.length() > 23) {
+            tag = tag.substring(0, 22);
+        }
+        return tag;
+    }
+
+    @Override
+    public int taskId() {
+        return this.hashCode();
     }
 }

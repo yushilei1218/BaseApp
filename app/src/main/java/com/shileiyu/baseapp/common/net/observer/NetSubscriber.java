@@ -6,7 +6,6 @@ import com.shileiyu.baseapp.common.net.pool.NetPool;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author shilei.yu

@@ -14,7 +14,7 @@ public class DisCancelable implements Cancelable {
     private WeakReference<Disposable> weak;
 
     public DisCancelable(Disposable dis) {
-        weak = new WeakReference<Disposable>(dis);
+        weak = new WeakReference<>(dis);
     }
 
     @Override

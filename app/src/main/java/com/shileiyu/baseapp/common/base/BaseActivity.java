@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+
+import com.shileiyu.baseapp.common.net.pool.NetPool;
+import com.shileiyu.baseapp.common.util.ActivityTask;
 
 import butterknife.ButterKnife;
 
@@ -21,14 +25,26 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+
+        ActivityTask.addActivity(this);
+
         mBaseView = new BaseView(this);
+
         ButterKnife.bind(this);
+
         initView();
     }
 
     protected abstract int getLayoutId();
 
     protected abstract void initView();
+
+    @Override
+    protected void onDestroy() {
+        NetPool.cancel(taskId());
+        ActivityTask.removeActivity(this);
+        super.onDestroy();
+    }
 
     @Override
     public void onHide() {
@@ -73,5 +89,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     public void doLogin(int code, String msg) {
         mBaseView.doLogin(code, msg);
+    }
+
+    @Override
+    public String getTAG() {
+        String tag = this.getClass().getSimpleName();
+        if (tag.length() > 23) {
+            tag = tag.substring(0, 22);
+        }
+        return tag;
+    }
+
+    @Override
+    public int taskId() {
+        return this.hashCode();
     }
 }
