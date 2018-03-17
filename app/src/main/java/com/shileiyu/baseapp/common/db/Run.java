@@ -19,7 +19,7 @@ public class Run implements Runnable {
 
     @Override
     public void run() {
-        Log.d("Task", "Thread =" + Thread.currentThread().getName());
+        Log.d("Task", "Thread =" + Thread.currentThread().getName() + " " + Thread.currentThread().hashCode());
         if (ex != null) {
             int activeCount = ex.getActiveCount();
             int poolSize = ex.getPoolSize();

@@ -44,6 +44,8 @@ public class DbClient {
         mDaoSession = new DaoMaster(db).newSession();
 
         mExecutor = new ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128), THREAD_FACTORY);
+        //核心线程超时也会销毁
+        mExecutor.allowCoreThreadTimeOut(true);
     }
 
     public static synchronized DbClient instance() {
@@ -53,7 +55,7 @@ public class DbClient {
         return sClient;
     }
 
-    public DaoSession getDaoSession() {
+    DaoSession getDaoSession() {
         return mDaoSession;
     }
 
