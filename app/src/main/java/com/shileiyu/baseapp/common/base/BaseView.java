@@ -161,4 +161,14 @@ public class BaseView implements IBaseView {
             return target;
         }
     }
+
+    @Override
+    public String getTAG() {
+        return null;
+    }
+
+    @Override
+    public int taskId() {
+        return 0;
+    }
 }

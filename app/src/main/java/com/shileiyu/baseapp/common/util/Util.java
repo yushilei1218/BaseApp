@@ -2,6 +2,7 @@ package com.shileiyu.baseapp.common.util;
 
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.shileiyu.baseapp.common.base.BaseApp;
 
 import java.util.Collection;
@@ -18,5 +19,9 @@ public class Util {
 
     public static boolean isEmpty(Collection c) {
         return c == null || c.isEmpty();
+    }
+
+    public static String toJson(Object obj) {
+        return new Gson().toJson(obj);
     }
 }
