@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.bean.BeanA;
+import com.shileiyu.baseapp.common.bean.DaoSession;
 import com.shileiyu.baseapp.common.db.DbClient;
 import com.shileiyu.baseapp.common.db.ListResultTask;
 import com.shileiyu.baseapp.common.db.ResultTask;
@@ -48,8 +49,7 @@ public class MainActivity extends BaseActivity {
     private void delete() {
         DbClient.instance().runTask(new SimpleTask() {
             @Override
-            public void run() {
-                super.run();
+            protected void call(DaoSession dao) {
                 dao.deleteAll(BeanA.class);
             }
         });
@@ -64,15 +64,13 @@ public class MainActivity extends BaseActivity {
         }
         instance.runTask(new SimpleTask() {
             @Override
-            public void run() {
-                super.run();
+            protected void call(DaoSession dao) {
                 dao.insert(new BeanA("text", 11));
             }
         });
         instance.runTask(new SimpleTask() {
             @Override
-            public void run() {
-                super.run();
+            protected void call(DaoSession dao) {
                 dao.getBeanADao().insertInTx(data);
             }
         });
@@ -111,7 +109,7 @@ public class MainActivity extends BaseActivity {
                 }
 
                 @Override
-                protected List<BeanA> call() {
+                protected List<BeanA> call(DaoSession dao) {
                     return dao.getBeanADao().loadAll();
                 }
             });
