@@ -13,8 +13,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity(nameInDb = "BeanA")
 public class BeanA {
     @Id(autoincrement = true)
-    @Index(name = "id")
-    private long id;
+    private Long id;
 
     @Index(name = "name")
     private String name;
@@ -22,8 +21,8 @@ public class BeanA {
     @Transient
     private long time;
 
-    @Generated(hash = 1661877803)
-    public BeanA(long id, String name) {
+    @Generated(hash = 992908234)
+    public BeanA(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -32,11 +31,16 @@ public class BeanA {
     public BeanA() {
     }
 
-    public long getId() {
+    public BeanA(String name, long time) {
+        this.name = name;
+        this.time = time;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

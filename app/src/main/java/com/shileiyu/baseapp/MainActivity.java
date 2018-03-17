@@ -17,6 +17,7 @@ import com.shileiyu.baseapp.common.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,11 +56,20 @@ public class MainActivity extends BaseActivity {
     }
 
     private void add() {
+        DbClient instance = DbClient.instance();
+        Random random = new Random();
         final List<BeanA> data = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            data.add(new BeanA(i, "item+" + i));
+            data.add(new BeanA("item+" + i, random.nextInt(Integer.MAX_VALUE >> 1)));
         }
-        DbClient.instance().runTask(new SimpleTask() {
+        instance.runTask(new SimpleTask() {
+            @Override
+            public void run() {
+                super.run();
+                dao.insert(new BeanA("text", 11));
+            }
+        });
+        instance.runTask(new SimpleTask() {
             @Override
             public void run() {
                 super.run();
@@ -87,27 +97,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void query() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                DbClient.instance().runTask(new ListResultTask<BeanA>() {
-                    @Override
-                    protected void onResult(List<BeanA> data) {
-
-                    }
-
-                    @Override
-                    protected List<BeanA> call() {
-                        return dao.getBeanADao().loadAll();
-                    }
-                });
-            }
-        };
-        new Handler().postDelayed(r, 10000);
-        new Handler().postDelayed(r, 3000);
-        new Handler().postDelayed(r, 6000);
-        new Handler().postDelayed(r, 16000);
-
         for (int i = 0; i < 5; i++) {
             DbClient.instance().runTask(new ResultTask<List<BeanA>>() {
                 @Override
