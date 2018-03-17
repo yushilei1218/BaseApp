@@ -17,7 +17,19 @@
             android:id="@+id/main_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="操作"/>
+            android:text="add"/>
+
+        <Button
+            android:id="@+id/main_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete"/>
+
+        <Button
+            android:id="@+id/main_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="query"/>
 
         <TextView
             android:id="@+id/main_tv"

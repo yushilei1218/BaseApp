@@ -1,8 +1,9 @@
 package com.shileiyu.baseapp;
 
 
+import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -39,11 +41,20 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 
-
     }
 
-    @OnClick(R.id.main_btn)
-    public void onViewClicked() {
+
+    private void delete() {
+        DbClient.instance().runTask(new SimpleTask() {
+            @Override
+            public void run() {
+                super.run();
+                dao.deleteAll(BeanA.class);
+            }
+        });
+    }
+
+    private void add() {
         final List<BeanA> data = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             data.add(new BeanA(i, "item+" + i));
@@ -55,6 +66,27 @@ public class MainActivity extends BaseActivity {
                 dao.getBeanADao().insertInTx(data);
             }
         });
+    }
+
+
+    @OnClick({R.id.main_btn, R.id.main_delete, R.id.main_query})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.main_btn:
+                add();
+                break;
+            case R.id.main_delete:
+                delete();
+                break;
+            case R.id.main_query:
+                query();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void query() {
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -84,6 +116,8 @@ public class MainActivity extends BaseActivity {
                         String s = mMainTv.getText() + "\n\n" + Util.toJson(data);
                         mMainTv.setText(s);
 
+                    } else {
+                        mMainTv.setText(null);
                     }
                 }
 
