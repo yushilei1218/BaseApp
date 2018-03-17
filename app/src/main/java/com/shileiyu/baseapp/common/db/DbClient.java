@@ -16,6 +16,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
+ * DbClient
+ * <p>
+ * 1：初始化 GreenDao 建立数据库DaoSession
+ * <p>
+ * 2：执行Task 已确保所有的数据库操作都在单一线程内顺序执行
+ *
  * @author shilei.yu
  * @since on 2018/3/17.
  */
