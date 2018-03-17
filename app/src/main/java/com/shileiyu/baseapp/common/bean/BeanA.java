@@ -1,10 +1,14 @@
 package com.shileiyu.baseapp.common.bean;
 
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
+
+import java.util.Date;
 
 /**
  * @author shilei.yu
@@ -18,13 +22,17 @@ public class BeanA {
     @Index(name = "name")
     private String name;
 
+    @Convert(converter = DateConverter.class, columnType = Long.class)
+    private Date date = new Date();
+
     @Transient
     private long time;
 
-    @Generated(hash = 992908234)
-    public BeanA(Long id, String name) {
+    @Generated(hash = 1566525127)
+    public BeanA(Long id, String name, Date date) {
         this.id = id;
         this.name = name;
+        this.date = date;
     }
 
     @Generated(hash = 1374877907)
@@ -42,6 +50,14 @@ public class BeanA {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getName() {
