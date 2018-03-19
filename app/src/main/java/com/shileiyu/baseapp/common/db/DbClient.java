@@ -5,14 +5,23 @@ import android.support.annotation.NonNull;
 import com.shileiyu.baseapp.common.base.BaseApp;
 import com.shileiyu.baseapp.common.bean.DaoMaster;
 import com.shileiyu.baseapp.common.bean.DaoSession;
+import com.shileiyu.baseapp.common.db.normal.ResultTask;
+import com.shileiyu.baseapp.common.db.normal.SimpleTask;
+import com.shileiyu.baseapp.common.db.rx.DbCallable;
+import com.shileiyu.baseapp.common.db.rx.DbListCallable;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -61,7 +70,7 @@ public class DbClient {
         return sClient;
     }
 
-    DaoSession getDaoSession() {
+    public DaoSession getDaoSession() {
         return mDaoSession;
     }
 
@@ -73,5 +82,13 @@ public class DbClient {
     public void runTask(SimpleTask task) {
         task.setEx(mExecutor);
         mExecutor.submit(task);
+    }
+
+    public <T> Flowable<T> flowable(DbCallable<T> callable) {
+        return Flowable.fromCallable(callable).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public <T> Flowable<List<T>> listFlowable(DbListCallable<T> callable) {
+        return Flowable.fromCallable(callable).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

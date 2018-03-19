@@ -1,9 +1,10 @@
-package com.shileiyu.baseapp.common.db;
+package com.shileiyu.baseapp.common.db.normal;
 
 import android.os.Handler;
 import android.os.Looper;
 
 import com.shileiyu.baseapp.common.bean.DaoSession;
+import com.shileiyu.baseapp.common.db.DbClient;
 
 /**
  * @author shilei.yu
@@ -19,7 +20,7 @@ public abstract class ResultTask<T> extends Run {
     protected abstract T call(DaoSession dao);
 
     @Override
-    public void run() {
+    public final void run() {
         super.run();
         final T call = call(DbClient.instance().getDaoSession());
         if (call != null) {

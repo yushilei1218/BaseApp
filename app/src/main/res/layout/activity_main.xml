@@ -31,6 +31,24 @@
             android:layout_height="wrap_content"
             android:text="query"/>
 
+        <Button
+            android:id="@+id/main_rx_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RX add"/>
+
+        <Button
+            android:id="@+id/main_rx_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RX delete"/>
+
+        <Button
+            android:id="@+id/main_rx_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RX query"/>
+
         <TextView
             android:id="@+id/main_tv"
             android:layout_width="match_parent"

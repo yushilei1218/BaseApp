@@ -1,4 +1,4 @@
-package com.shileiyu.baseapp.common.db;
+package com.shileiyu.baseapp.common.db.normal;
 
 import android.util.Log;
 
