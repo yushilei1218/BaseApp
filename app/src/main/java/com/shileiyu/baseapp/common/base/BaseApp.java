@@ -2,6 +2,7 @@ package com.shileiyu.baseapp.common.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.shileiyu.baseapp.common.db.DbClient;
 
@@ -19,6 +20,11 @@ public class BaseApp extends Application {
         appContext = this;
 
         DbClient.instance();
-
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+               e.printStackTrace();
+            }
+        });
     }
 }

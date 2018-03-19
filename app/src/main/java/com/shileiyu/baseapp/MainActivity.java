@@ -1,6 +1,7 @@
 package com.shileiyu.baseapp;
 
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.shileiyu.baseapp.common.db.normal.SimpleTask;
 import com.shileiyu.baseapp.common.db.rx.DbCallable;
 import com.shileiyu.baseapp.common.db.rx.DbListCallable;
 import com.shileiyu.baseapp.common.util.Util;
+import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
 
 import org.greenrobot.greendao.rx.RxDao;
 
@@ -76,6 +78,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void add() {
+        startActivity(new Intent(this, WaterfallActivity.class));
+
         DbClient instance = DbClient.instance();
         Random random = new Random();
         final List<BeanA> data = new ArrayList<>();

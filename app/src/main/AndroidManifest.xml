@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ui.home.HomeActivity">
         </activity>
+        <activity android:name=".ui.waterfall.WaterfallActivity">
+        </activity>
     </application>
 
 </manifest>
