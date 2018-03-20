@@ -27,7 +27,6 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Foot mFoot = new Foot();
 
     private boolean hasFooter = false;
-    private BaseViewHolder mHolder;
 
     public FooterAdapter() {
         setMatch(Foot.class, new FootDelegate());
@@ -77,9 +76,10 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemDelegate itemDelegate = typeMatch.get(viewType);
-        mHolder = itemDelegate.create(parent, viewType);
+        BaseViewHolder holder = itemDelegate.create(parent, viewType);
 
-        ViewGroup.LayoutParams lp = mHolder.itemView.getLayoutParams();
+        //瀑布流加载更多效果
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
         if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
             if (itemDelegate == match.get(Foot.class)) {
                 //foot
@@ -88,7 +88,7 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 ((StaggeredGridLayoutManager.LayoutParams) lp).setFullSpan(false);
             }
         }
-        return mHolder;
+        return holder;
     }
 
     @SuppressWarnings("unchecked")
