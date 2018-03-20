@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.ThreeTuple;
 import com.shileiyu.baseapp.common.enums.DataState;
@@ -127,7 +128,11 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
         @Override
         protected void bindView(int position, BaseViewHolder holder, WaterfallBean data) {
             ImageView img = holder.find(R.id.item_water_img);
-            img.setImageResource(data.rid);
+//            img.setImageResource(data.rid);
+            Glide.with(WaterfallActivity.this)
+                    .load(data.rid)
+                    .placeholder(R.mipmap.place_holder)
+                    .into(img);
         }
     }
 }
