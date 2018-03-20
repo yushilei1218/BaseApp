@@ -7,5 +7,6 @@ package com.shileiyu.baseapp.common.enums;
 
 public enum DataState {
     NO_MORE,
-    HAS_MORE
+    HAS_MORE,
+    EMPTY
 }

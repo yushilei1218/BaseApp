@@ -26,7 +26,7 @@ public class WaterfallPresenter extends BasePresenter<WaterfallContract.IView> i
     @Override
     public void onStart() {
         view.bind(WaterfallContract.IModel.data);
-        load(true, LoadState.LOADING);
+        load(true, LoadState.LOAD_INNER);
     }
 
     @Override

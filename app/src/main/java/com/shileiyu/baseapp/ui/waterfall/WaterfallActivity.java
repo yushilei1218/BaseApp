@@ -1,17 +1,18 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.widget.ImageView;
 
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.ThreeTuple;
-import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.enums.LoadState;
 import com.shileiyu.baseapp.common.mvp.BaseMvpActivity;
-import com.shileiyu.baseapp.ui.waterfall.adapter.WaterfallAdapter;
+import com.shileiyu.baseapp.common.widget.BaseViewHolder;
+import com.shileiyu.baseapp.common.widget.FooterAdapter;
+import com.shileiyu.baseapp.common.widget.ItemDelegate;
+import com.shileiyu.baseapp.common.widget.LoadRecyclerView;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 
 import java.util.List;
@@ -26,10 +27,10 @@ import butterknife.BindView;
 public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresenter> implements WaterfallContract.IView {
 
     @BindView(R.id.act_water_fall_recycler)
-    RecyclerView mRecycler;
+    LoadRecyclerView mRecycler;
     @BindView(R.id.act_water_fall_swipe)
     SwipeRefreshLayout mSwipeLayout;
-    private WaterfallAdapter mAdapter;
+    private FooterAdapter mAdapter;
 
     @Override
     protected WaterfallContract.IPresenter getPresenter() {
@@ -43,14 +44,24 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
 
     @Override
     protected void initView() {
-        mRecycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        mAdapter = new WaterfallAdapter();
+        mRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mAdapter = new FooterAdapter();
+
+        mAdapter.setMatch(WaterfallBean.class, new WaterDelegate());
+
         mRecycler.setAdapter(mAdapter);
+
+        mRecycler.setMoreListener(new LoadRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                presenter.load(false, LoadState.LOAD_MORE);
+            }
+        });
 
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.load(true, LoadState.LOAD_WIDGET);
+                presenter.load(true, LoadState.LOAD_REFRESH);
             }
         });
         presenter.onStart();
@@ -64,23 +75,28 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
     @Override
     public void changeLoadState(LoadState state, boolean isShow) {
         switch (state) {
-            case LOADING:
+            case LOAD_INNER:
                 if (isShow) {
                     onLoading("加载中...");
                 } else {
                     onHide();
                 }
                 break;
-            case DIALOG_LOADING:
+            case LOAD_DIALOG:
                 if (isShow) {
                     showDialogLoading("加载中");
                 } else {
                     hideDialogLoading();
                 }
                 break;
-            case LOAD_WIDGET:
+            case LOAD_REFRESH:
                 if (!isShow) {
                     mSwipeLayout.setRefreshing(false);
+                }
+                break;
+            case LOAD_MORE:
+                if (!isShow) {
+                    mRecycler.hideFooter();
                 }
                 break;
             default:
@@ -98,6 +114,20 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
             showToast("有更多");
         } else {
             showToast("无更多");
+        }
+    }
+
+    private final class WaterDelegate extends ItemDelegate<WaterfallBean> {
+
+        @Override
+        protected int layoutId() {
+            return R.layout.item_water_fall;
+        }
+
+        @Override
+        protected void bindView(int position, BaseViewHolder holder, WaterfallBean data) {
+            ImageView img = holder.find(R.id.item_water_img);
+            img.setImageResource(data.rid);
         }
     }
 }

@@ -37,7 +37,18 @@ public class WaterfallModel implements WaterfallContract.IModel {
             , R.mipmap.ic_img_8
             , R.mipmap.ic_img_9
             , R.mipmap.ic_img_10
-            , R.mipmap.ic_img_11};
+            , R.mipmap.ic_img_11
+            , R.mipmap.ic_img_12
+            , R.mipmap.ic_img_13
+            , R.mipmap.ic_img_14
+            , R.mipmap.ic_img_15
+            , R.mipmap.ic_img_16
+            , R.mipmap.ic_img_17
+            , R.mipmap.ic_img_18
+            , R.mipmap.ic_img_19
+            , R.mipmap.ic_img_20
+            , R.mipmap.ic_img_21
+    };
 
 
     @Override

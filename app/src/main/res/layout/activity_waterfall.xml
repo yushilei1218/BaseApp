@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     android:orientation="vertical"
     tools:context="com.shileiyu.baseapp.ui.waterfall.WaterfallActivity">
 
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.shileiyu.baseapp.common.widget.LoadRecyclerView
             android:id="@+id/act_water_fall_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
