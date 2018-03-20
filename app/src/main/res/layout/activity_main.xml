@@ -49,6 +49,18 @@
             android:layout_height="wrap_content"
             android:text="RX query"/>
 
+        <Button
+            android:id="@+id/main_to_many"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add to many"/>
+
+        <Button
+            android:id="@+id/main_query_many"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="query to many"/>
+
         <TextView
             android:id="@+id/main_tv"
             android:layout_width="match_parent"

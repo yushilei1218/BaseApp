@@ -1,5 +1,6 @@
 package com.shileiyu.baseapp.common.widget;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
@@ -80,12 +81,15 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         //瀑布流加载更多效果
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-            if (itemDelegate == match.get(Foot.class)) {
-                //foot
-                ((StaggeredGridLayoutManager.LayoutParams) lp).setFullSpan(true);
-            } else {
-                ((StaggeredGridLayoutManager.LayoutParams) lp).setFullSpan(false);
+        if (lp != null) {
+            boolean isFoot = itemDelegate == match.get(Foot.class);
+            if (lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (isFoot) {
+                    //foot
+                    ((StaggeredGridLayoutManager.LayoutParams) lp).setFullSpan(true);
+                } else {
+                    ((StaggeredGridLayoutManager.LayoutParams) lp).setFullSpan(false);
+                }
             }
         }
         return holder;

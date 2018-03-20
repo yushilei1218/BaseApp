@@ -9,8 +9,11 @@ import android.widget.TextView;
 
 import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.bean.BeanA;
+import com.shileiyu.baseapp.common.bean.BeanB;
+import com.shileiyu.baseapp.common.bean.BeanC;
 import com.shileiyu.baseapp.common.bean.DaoSession;
 import com.shileiyu.baseapp.common.db.DbClient;
+import com.shileiyu.baseapp.common.db.normal.ListResultTask;
 import com.shileiyu.baseapp.common.db.normal.ResultTask;
 import com.shileiyu.baseapp.common.db.normal.SimpleTask;
 import com.shileiyu.baseapp.common.db.rx.DbCallable;
@@ -101,7 +104,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.main_btn, R.id.main_delete, R.id.main_query, R.id.main_rx_add, R.id.main_rx_delete, R.id.main_rx_query})
+    @OnClick({R.id.main_btn, R.id.main_delete, R.id.main_query, R.id.main_rx_add, R.id.main_rx_delete, R.id.main_rx_query
+    ,R.id.main_to_many,R.id.main_query_many})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_btn:
@@ -122,9 +126,48 @@ public class MainActivity extends BaseActivity {
             case R.id.main_rx_query:
                 rxQuery();
                 break;
+            case R.id.main_to_many:
+                addToMany();
+                break;
+            case R.id.main_query_many:
+                queryToMany();
+                break;
             default:
                 break;
         }
+    }
+
+    private void queryToMany() {
+        DbClient.instance().runTask(new ListResultTask<BeanB>() {
+            @Override
+            protected void onResult(List<BeanB> data) {
+                mMainTv.setText(Util.toJson(data));
+            }
+
+            @Override
+            protected List<BeanB> call(DaoSession dao) {
+                return dao.getBeanBDao().loadAll();
+            }
+        });
+    }
+
+    private void addToMany() {
+        final List<BeanB> data = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            BeanB e = new BeanB("i+item+" + i);
+            List<BeanC> cs = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+                cs.add(new BeanC("item c+" + j));
+            }
+            e.data = cs;
+            data.add(e);
+        }
+        DbClient.instance().runTask(new SimpleTask() {
+            @Override
+            protected void call(DaoSession dao) {
+                dao.getBeanBDao().insertInTx(data);
+            }
+        });
     }
 
     private void rxQuery() {
