@@ -68,7 +68,7 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mFoot.state;
     }
 
-    public Object get(int position) {
+    private Object get(int position) {
         if (Util.isEmpty(data) || (position >= data.size())) {
             return mFoot;
         }

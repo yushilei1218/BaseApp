@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.shileiyu.baseapp.R;
-import com.shileiyu.baseapp.common.bean.ThreeTuple;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.enums.LoadStyle;
@@ -47,7 +46,10 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
 
     @Override
     protected void initView() {
-        mRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+
+        mRecycler.setLayoutManager(manager);
         mAdapter = new FooterAdapter();
 
         mAdapter.setMatch(WaterfallBean.class, new WaterDelegate());
