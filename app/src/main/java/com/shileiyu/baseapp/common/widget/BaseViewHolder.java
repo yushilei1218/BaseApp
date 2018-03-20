@@ -17,7 +17,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T find(int rid) {
+    public <T extends View> T find(int rid) {
         View view = mViews.get(rid);
         if (view==null){
             view=itemView.findViewById(rid);
