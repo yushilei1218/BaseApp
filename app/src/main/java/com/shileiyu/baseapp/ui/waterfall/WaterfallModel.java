@@ -1,6 +1,7 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
@@ -52,7 +53,7 @@ public class WaterfallModel implements WaterfallContract.IModel {
 
 
     @Override
-    public void load(boolean isRefresh, final ICallBack<TwoTuple<List<WaterfallBean>, DataState>> callback) {
+    public void load(final boolean isRefresh, final ICallBack<TwoTuple<List<WaterfallBean>, DataState>> callback) {
         index = isRefresh ? index = 0 : index++;
         if (isRefresh) {
             data.clear();
@@ -75,8 +76,23 @@ public class WaterfallModel implements WaterfallContract.IModel {
                 .subscribe(new Consumer<List<WaterfallBean>>() {
                     @Override
                     public void accept(List<WaterfallBean> waterfallBeen) throws Exception {
-                        boolean b = random.nextBoolean();
-                        callback.call(new TwoTuple<>(waterfallBeen, b ? DataState.HAS_MORE : DataState.NO_MORE));
+                        if (isRefresh) {
+
+                            boolean isEmpty = random.nextBoolean();
+                            if (isEmpty) {
+                                waterfallBeen.clear();
+                                callback.call(new TwoTuple<>(waterfallBeen, DataState.EMPTY));
+                                Log.d("WaterfallModel", "首页空集合 EMPTY");
+                            } else {
+                                boolean hasMore = random.nextBoolean();
+                                callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+                                Log.d("WaterfallModel", "首页非空集合 hasMore=" + hasMore);
+                            }
+                        } else {
+                            boolean hasMore = random.nextBoolean();
+                            callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+                            Log.d("WaterfallModel", "非首页非空集合 hasMore=" + hasMore);
+                        }
                     }
                 });
     }

@@ -5,7 +5,7 @@ package com.shileiyu.baseapp.common.enums;
  * @since on 2018/3/19.
  */
 
-public enum LoadState {
+public enum LoadStyle {
     /**
      * 刷新控件触发的loading
      */

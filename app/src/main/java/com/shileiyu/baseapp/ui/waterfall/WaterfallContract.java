@@ -5,7 +5,7 @@ import com.shileiyu.baseapp.common.bean.ThreeTuple;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.callback.ICallBack;
 import com.shileiyu.baseapp.common.enums.DataState;
-import com.shileiyu.baseapp.common.enums.LoadState;
+import com.shileiyu.baseapp.common.enums.LoadStyle;
 import com.shileiyu.baseapp.common.mvp.IBasePresenter;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 
@@ -20,19 +20,19 @@ import java.util.List;
 
 public interface WaterfallContract {
     interface IPresenter extends IBasePresenter {
-        void load(boolean isRefresh, LoadState state);
+        void load(boolean isRefresh, LoadStyle state);
     }
 
     interface IView extends IBaseView {
         void bind(List<WaterfallBean> root);
 
-        void changeLoadState(LoadState state,boolean isShow);
+        void changeLoadState(LoadStyle state, boolean isShow);
 
-        void show(ThreeTuple<LoadState, List<WaterfallBean>, DataState> tuple);
+        void notifyDataChanged(TwoTuple<LoadStyle, DataState> tuple);
     }
 
     interface IModel {
-        static List<WaterfallBean> data = new ArrayList<>();
+        List<WaterfallBean> data = new ArrayList<>();
 
         void load(boolean isRefresh, ICallBack<TwoTuple<List<WaterfallBean>, DataState>> callback);
     }

@@ -81,7 +81,7 @@ public class BaseView implements IBaseView {
     public void showDialogLoading(String msg) {
         Activity activity = getActivity();
         if (activity != null && (!activity.isFinishing())) {
-            //show dialog
+            //notifyDataChanged dialog
             if (mLoadDialog == null) {
                 LayoutInflater inflater = LayoutInflater.from(activity);
                 View v = inflater.inflate(R.layout.request_loading, null);

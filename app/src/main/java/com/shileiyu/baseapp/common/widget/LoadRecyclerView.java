@@ -2,7 +2,6 @@ package com.shileiyu.baseapp.common.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,9 +19,6 @@ public class LoadRecyclerView extends RecyclerView {
     private FooterAdapter mFooterAdapter = null;
 
     private OnLoadMoreListener mMoreListener;
-
-
-    private boolean isLoading = false;
 
     public LoadRecyclerView(Context context) {
         super(context);
@@ -65,6 +61,9 @@ public class LoadRecyclerView extends RecyclerView {
         if (mFooterAdapter == null) {
             return;
         }
+        if (!mFooterAdapter.getFootState().isCanLoadMore()) {
+            return;
+        }
         if (mMoreListener == null) {
             return;
         }
@@ -82,11 +81,8 @@ public class LoadRecyclerView extends RecyclerView {
             lastVisibleItem = findMax(itemPositions);
         }
         if (lastVisibleItem == totalItemCount - 1) {
-            if (!isLoading) {
-                isLoading = true;
-                mFooterAdapter.showFooter();
-                mMoreListener.onLoadMore();
-            }
+            mFooterAdapter.changeFootState(FootState.LOADING);
+            mMoreListener.onLoadingMore();
         }
     }
 
@@ -101,21 +97,17 @@ public class LoadRecyclerView extends RecyclerView {
     }
 
     public void hideFooter() {
-        isLoading = false;
         if (mFooterAdapter != null) {
-            mFooterAdapter.hideFooter();
+            mFooterAdapter.changeFootState(FootState.HIDE);
         }
     }
 
-    public void showFooter() {
-        if (mFooterAdapter == null) {
-            return;
+    public void noMore() {
+        if (mFooterAdapter != null) {
+            mFooterAdapter.changeFootState(FootState.NO_MORE);
         }
-        if (isLoading) {
-            return;
-        }
-        mFooterAdapter.showFooter();
     }
+
 
     @Override
     public void setAdapter(Adapter adapter) {
@@ -126,6 +118,9 @@ public class LoadRecyclerView extends RecyclerView {
     }
 
     public interface OnLoadMoreListener {
-        void onLoadMore();
+        /**
+         * 触发上拉加载更多
+         */
+        void onLoadingMore();
     }
 }

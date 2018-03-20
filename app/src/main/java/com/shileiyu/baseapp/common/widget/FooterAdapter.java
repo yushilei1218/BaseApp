@@ -1,6 +1,5 @@
 package com.shileiyu.baseapp.common.widget;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.util.Util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +23,7 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List data;
 
-    private Foot mFoot = new Foot();
-
-    private boolean hasFooter = false;
+    private final Foot mFoot = new Foot();
 
     public FooterAdapter() {
         setMatch(Foot.class, new FootDelegate());
@@ -43,22 +39,33 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         typeMatch.put(d.layoutId(), d);
     }
 
-    public void hideFooter() {
-        if (!hasFooter) {
+    public void changeFootState(FootState state) {
+        if (state == null) {
             return;
         }
-        hasFooter = false;
-        int position = data == null ? 0 : data.size();
-        notifyItemRemoved(position);
+        if (mFoot.state == state) {
+            return;
+        }
+        FootState pre = mFoot.state;
+        mFoot.state = state;
+        switch (state) {
+            case HIDE:
+                int position = data == null ? 0 : data.size();
+                notifyItemRemoved(position);
+                break;
+            default:
+                int pos = data == null ? 0 : data.size();
+                if (pre == FootState.HIDE) {
+                    notifyItemInserted(pos);
+                } else {
+                    notifyItemChanged(pos);
+                }
+                break;
+        }
     }
 
-    public void showFooter() {
-        if (hasFooter) {
-            return;
-        }
-        hasFooter = true;
-        int position = data == null ? 0 : data.size();
-        notifyItemInserted(position);
+    public FootState getFootState() {
+        return mFoot.state;
     }
 
     public Object get(int position) {
@@ -105,25 +112,9 @@ public class FooterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        int count = hasFooter ? 1 : 0;
+        int count = mFoot.state == FootState.HIDE ? 0 : 1;
         count = data == null ? count : count + data.size();
         return count;
     }
 
-    public static final class Foot {
-
-    }
-
-    public static final class FootDelegate extends ItemDelegate<Foot> {
-
-        @Override
-        protected int layoutId() {
-            return R.layout.item_footer;
-        }
-
-        @Override
-        protected void bindView(int position, BaseViewHolder holder, Foot data) {
-
-        }
-    }
 }
