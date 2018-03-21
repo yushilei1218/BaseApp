@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.r0adkll.slidr.Slidr;
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.ActivityTask;
 
@@ -24,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Slidr.attach(this);
+
         setContentView(getLayoutId());
 
         ActivityTask.addActivity(this);
