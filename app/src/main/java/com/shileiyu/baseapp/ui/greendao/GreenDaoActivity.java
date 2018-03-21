@@ -1,12 +1,12 @@
-package com.shileiyu.baseapp;
+package com.shileiyu.baseapp.ui.greendao;
 
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.bean.BeanA;
 import com.shileiyu.baseapp.common.bean.BeanB;
@@ -19,7 +19,6 @@ import com.shileiyu.baseapp.common.db.normal.SimpleTask;
 import com.shileiyu.baseapp.common.db.rx.DbCallable;
 import com.shileiyu.baseapp.common.db.rx.DbListCallable;
 import com.shileiyu.baseapp.common.util.Util;
-import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
 
 import org.greenrobot.greendao.rx.RxDao;
 
@@ -35,7 +34,7 @@ import rx.Subscriber;
 /**
  * @author shilei
  */
-public class MainActivity extends BaseActivity {
+public class GreenDaoActivity extends BaseActivity {
 
 
     @BindView(R.id.main_btn)
@@ -45,7 +44,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_green_dao;
     }
 
     @Override
@@ -81,7 +80,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void add() {
-        startActivity(new Intent(this, WaterfallActivity.class));
 
         DbClient instance = DbClient.instance();
         Random random = new Random();
@@ -105,7 +103,7 @@ public class MainActivity extends BaseActivity {
 
 
     @OnClick({R.id.main_btn, R.id.main_delete, R.id.main_query, R.id.main_rx_add, R.id.main_rx_delete, R.id.main_rx_query
-    ,R.id.main_to_many,R.id.main_query_many})
+            , R.id.main_to_many, R.id.main_query_many})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_btn:
