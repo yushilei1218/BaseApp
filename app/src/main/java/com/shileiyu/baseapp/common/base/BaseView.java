@@ -3,7 +3,6 @@ package com.shileiyu.baseapp.common.base;
 import android.app.Activity;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.util.Util;
-
-import java.net.URL;
 
 /**
  * @author shilei.yu
@@ -27,14 +24,29 @@ public class BaseView implements IBaseView {
 
     private OperateView mOperateImpl;
 
+    private String mTag;
+
+    private int mTaskId;
+
     public BaseView(Activity activity) {
+        saveTagAndTaskId(activity);
         mTarget = new ActivityWrapper(activity);
         init();
     }
 
     public BaseView(Fragment fragment) {
+        saveTagAndTaskId(fragment);
         mTarget = new FragmentWrapper(fragment);
         init();
+    }
+
+    private void saveTagAndTaskId(Object target) {
+        String tag = target.getClass().getSimpleName();
+        if (tag.length() > 23) {
+            tag = tag.substring(0, 22);
+        }
+        mTag = tag;
+        mTaskId = target.hashCode();
     }
 
     private void init() {
@@ -164,11 +176,11 @@ public class BaseView implements IBaseView {
 
     @Override
     public String getTAG() {
-        return null;
+        return mTag;
     }
 
     @Override
     public int taskId() {
-        return 0;
+        return mTaskId;
     }
 }

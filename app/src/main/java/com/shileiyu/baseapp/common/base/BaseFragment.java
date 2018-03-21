@@ -95,15 +95,11 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     @Override
     public String getTAG() {
-        String tag = this.getClass().getSimpleName();
-        if (tag.length() > 23) {
-            tag = tag.substring(0, 22);
-        }
-        return tag;
+        return mBaseView.getTAG();
     }
 
     @Override
     public int taskId() {
-        return this.hashCode();
+        return mBaseView.taskId();
     }
 }
