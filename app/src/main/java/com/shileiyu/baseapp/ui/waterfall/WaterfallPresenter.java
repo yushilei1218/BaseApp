@@ -20,7 +20,7 @@ public class WaterfallPresenter extends BasePresenter<WaterfallContract.IView> i
 
     public WaterfallPresenter(WaterfallContract.IView view) {
         super(view);
-        mModel = new WaterfallModel();
+        mModel = new WaterfallModel(taskId);
     }
 
     @Override

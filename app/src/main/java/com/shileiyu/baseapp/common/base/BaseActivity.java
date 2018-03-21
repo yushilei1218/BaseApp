@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.r0adkll.slidr.Slidr;
@@ -101,6 +100,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     public int taskId() {
-        return mBaseView.taskId();
+        return this.hashCode();
     }
 }

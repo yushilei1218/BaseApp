@@ -100,6 +100,6 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     @Override
     public int taskId() {
-        return mBaseView.taskId();
+        return this.hashCode();
     }
 }
