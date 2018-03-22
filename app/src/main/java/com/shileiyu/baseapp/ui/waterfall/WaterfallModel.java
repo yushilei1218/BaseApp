@@ -3,12 +3,15 @@ package com.shileiyu.baseapp.ui.waterfall;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.callback.ICallBack;
 import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.net.observer.NetSubscriber;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.concurrent.Callable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Callback;
@@ -29,10 +33,12 @@ import retrofit2.Callback;
 
 public class WaterfallModel implements WaterfallContract.IModel {
     private final int taskId;
+    private LifecycleProvider<ActivityEvent> lifeCycle;
     private static final String TAG = "WaterfallModel";
 
-    public WaterfallModel(int taskId) {
+    public WaterfallModel(int taskId, LifecycleProvider<ActivityEvent> lifecycleProvider) {
         this.taskId = taskId;
+        lifeCycle = lifecycleProvider;
     }
 
     private int index = 0;
@@ -79,36 +85,69 @@ public class WaterfallModel implements WaterfallContract.IModel {
                         return data;
                     }
                 })
+                .compose(lifeCycle.<List<WaterfallBean>>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new NetSubscriber<List<WaterfallBean>>(taskId) {
-                            @Override
-                            public void onFailed(Throwable t) {
-                                Log.e(TAG, "onFailed");
-                            }
+                .subscribe(new Consumer<List<WaterfallBean>>() {
+                               @Override
+                               public void accept(List<WaterfallBean> waterfallBeen) throws Exception {
+                                   Logger.e("onNext accept");
+                                   if (isRefresh) {
 
-                            @Override
-                            public void onNext(List<WaterfallBean> waterfallBeen) {
-                                if (isRefresh) {
-
-                                    boolean isEmpty = random.nextBoolean();
-                                    if (isEmpty) {
-                                        waterfallBeen.clear();
-                                        callback.call(new TwoTuple<>(waterfallBeen, DataState.EMPTY));
-                                        Log.e("WaterfallModel", "首页空集合 EMPTY");
-                                    } else {
-                                        boolean hasMore = random.nextBoolean();
-                                        callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
-                                        Log.e("WaterfallModel", "首页非空集合 hasMore=" + hasMore);
-                                    }
-                                } else {
-                                    boolean hasMore = random.nextBoolean();
-                                    callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
-                                    Log.e("WaterfallModel", "非首页非空集合 hasMore=" + hasMore);
-                                }
-                            }
-                        }
+                                       boolean isEmpty = random.nextBoolean();
+                                       if (isEmpty) {
+                                           waterfallBeen.clear();
+                                           callback.call(new TwoTuple<>(waterfallBeen, DataState.EMPTY));
+                                           Log.e("WaterfallModel", "首页空集合 EMPTY");
+                                       } else {
+                                           boolean hasMore = random.nextBoolean();
+                                           callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+                                           Log.e("WaterfallModel", "首页非空集合 hasMore=" + hasMore);
+                                       }
+                                   } else {
+                                       boolean hasMore = random.nextBoolean();
+                                       callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+                                       Log.e("WaterfallModel", "非首页非空集合 hasMore=" + hasMore);
+                                   }
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+                                   Logger.e("onError accept");
+                               }
+                           }, new Action() {
+                               @Override
+                               public void run() throws Exception {
+                                   Logger.e("onComplete accept");
+                               }
+                           }
                 );
     }
+//     new NetSubscriber<List<WaterfallBean>>(taskId) {
+//        @Override
+//        public void onFailed(Throwable t) {
+//            Log.e(TAG, "onFailed");
+//        }
+//
+//        @Override
+//        public void onNext(List<WaterfallBean> waterfallBeen) {
+//            if (isRefresh) {
+//
+//                boolean isEmpty = random.nextBoolean();
+//                if (isEmpty) {
+//                    waterfallBeen.clear();
+//                    callback.call(new TwoTuple<>(waterfallBeen, DataState.EMPTY));
+//                    Log.e("WaterfallModel", "首页空集合 EMPTY");
+//                } else {
+//                    boolean hasMore = random.nextBoolean();
+//                    callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+//                    Log.e("WaterfallModel", "首页非空集合 hasMore=" + hasMore);
+//                }
+//            } else {
+//                boolean hasMore = random.nextBoolean();
+//                callback.call(new TwoTuple<>(waterfallBeen, hasMore ? DataState.HAS_MORE : DataState.NO_MORE));
+//                Log.e("WaterfallModel", "非首页非空集合 hasMore=" + hasMore);
+//            }
+//        }
+//    }
 }

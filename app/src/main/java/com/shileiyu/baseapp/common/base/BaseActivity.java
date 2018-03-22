@@ -3,12 +3,14 @@ package com.shileiyu.baseapp.common.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.r0adkll.slidr.Slidr;
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.ActivityTask;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
@@ -17,7 +19,7 @@ import butterknife.ButterKnife;
  * @since on 2018/3/16.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
+public abstract class BaseActivity extends RxAppCompatActivity implements IRxActivityBaseView {
 
     private BaseView mBaseView;
 
@@ -79,11 +81,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     @Override
-    public <T extends View> T findView(int rid) {
-        return mBaseView.findView(rid);
-    }
-
-    @Override
     public Activity getActivity() {
         return this;
     }
@@ -101,5 +98,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     public int taskId() {
         return this.hashCode();
+    }
+
+    @Override
+    public LifecycleProvider<ActivityEvent> getLifecycle() {
+        return this;
     }
 }

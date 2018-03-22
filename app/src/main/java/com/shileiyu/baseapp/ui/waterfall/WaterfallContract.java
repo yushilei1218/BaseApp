@@ -1,6 +1,7 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
 import com.shileiyu.baseapp.common.base.IBaseView;
+import com.shileiyu.baseapp.common.base.IRxActivityBaseView;
 import com.shileiyu.baseapp.common.bean.ThreeTuple;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.callback.ICallBack;
@@ -8,6 +9,7 @@ import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.enums.LoadStyle;
 import com.shileiyu.baseapp.common.mvp.IBasePresenter;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public interface WaterfallContract {
         void load(boolean isRefresh, LoadStyle state);
     }
 
-    interface IView extends IBaseView {
+    interface IView extends IRxActivityBaseView {
         void bind(List<WaterfallBean> root);
 
         void changeLoadState(LoadStyle state, boolean isShow);

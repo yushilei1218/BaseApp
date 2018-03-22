@@ -1,6 +1,5 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
-import com.shileiyu.baseapp.common.bean.ThreeTuple;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.callback.ICallBack;
 import com.shileiyu.baseapp.common.enums.DataState;
@@ -20,7 +19,7 @@ public class WaterfallPresenter extends BasePresenter<WaterfallContract.IView> i
 
     public WaterfallPresenter(WaterfallContract.IView view) {
         super(view);
-        mModel = new WaterfallModel(taskId);
+        mModel = new WaterfallModel(taskId, view.getLifecycle());
     }
 
     @Override

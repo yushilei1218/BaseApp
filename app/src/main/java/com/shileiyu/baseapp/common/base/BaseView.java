@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.util.Util;
+import com.trello.rxlifecycle2.LifecycleProvider;
 
 /**
  * @author shilei.yu
@@ -17,8 +18,6 @@ import com.shileiyu.baseapp.common.util.Util;
  */
 
 public class BaseView implements IBaseView {
-
-    private SparseArray<View> mViews = new SparseArray<>();
 
     private TargetWrapper mTarget;
 
@@ -50,7 +49,7 @@ public class BaseView implements IBaseView {
     }
 
     private void init() {
-        View operateLayout = findView(R.id.operate_layout);
+        View operateLayout = mTarget.findViewById(R.id.operate_layout);
         mOperateImpl = new OperateView(operateLayout);
     }
 
@@ -72,19 +71,6 @@ public class BaseView implements IBaseView {
     @Override
     public void showToast(String msg) {
         Util.toast(msg);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T extends View> T findView(int rid) {
-        View view = mViews.get(rid);
-        if (view == null) {
-            view = mTarget.findViewById(rid);
-            if (view != null) {
-                mViews.append(rid, view);
-            }
-        }
-        return (T) view;
     }
 
     private Dialog mLoadDialog;
@@ -183,4 +169,10 @@ public class BaseView implements IBaseView {
     public int taskId() {
         return mTaskId;
     }
+
+    @Override
+    public LifecycleProvider getLifecycle() {
+        return null;
+    }
+
 }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.Util;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,7 +21,7 @@ import butterknife.Unbinder;
  * @since on 2018/3/16.
  */
 
-public abstract class BaseFragment extends Fragment implements IBaseView {
+public abstract class BaseFragment extends RxFragment implements IRxFragmentBaseView {
 
     private BaseView mBaseView;
 
@@ -86,11 +88,6 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public void doLogin(int code, String msg) {
         mBaseView.doLogin(code, msg);
-    }
-
-    @Override
-    public <T extends View> T findView(int rid) {
-        return mBaseView.findView(rid);
     }
 
     @Override
