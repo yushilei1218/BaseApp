@@ -8,7 +8,9 @@ import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.callback.ICallBack;
 import com.shileiyu.baseapp.common.enums.DataState;
+import com.shileiyu.baseapp.common.net.cancel.DisCancelable;
 import com.shileiyu.baseapp.common.net.observer.NetSubscriber;
+import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -21,6 +23,7 @@ import java.util.concurrent.Callable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -118,7 +121,7 @@ public class WaterfallModel implements WaterfallContract.IModel {
                            }, new Action() {
                                @Override
                                public void run() throws Exception {
-                                   Logger.e("onComplete accept");
+                                   Logger.e("onComplete run");
                                }
                            }
                 );
