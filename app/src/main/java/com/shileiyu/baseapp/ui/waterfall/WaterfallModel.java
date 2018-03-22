@@ -77,7 +77,7 @@ public class WaterfallModel implements WaterfallContract.IModel {
             data.clear();
         }
         final Random random = new Random();
-        Flowable
+        Flowable<List<WaterfallBean>> flowable = Flowable
                 .fromCallable(new Callable<List<WaterfallBean>>() {
                     @Override
                     public List<WaterfallBean> call() throws Exception {
@@ -88,8 +88,9 @@ public class WaterfallModel implements WaterfallContract.IModel {
                         }
                         return data;
                     }
-                })
-                .compose(lifeCycle.<List<WaterfallBean>>bindUntilEvent(ActivityEvent.DESTROY))
+                });
+
+        compose(flowable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -127,6 +128,10 @@ public class WaterfallModel implements WaterfallContract.IModel {
                             }
                         });
 
+    }
+
+    private <T> Flowable<T> compose(Flowable<T> real) {
+        return real.compose(lifeCycle.<T>bindUntilEvent(ActivityEvent.DESTROY));
     }
 
 
