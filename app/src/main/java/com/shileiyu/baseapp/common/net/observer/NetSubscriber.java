@@ -2,6 +2,7 @@ package com.shileiyu.baseapp.common.net.observer;
 
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.common.net.cancel.SubCancelable;
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 
@@ -15,7 +16,6 @@ import org.reactivestreams.Subscription;
  */
 
 public abstract class NetSubscriber<T> implements Subscriber<T> {
-    private static final String TAG = "NetSubscriber";
 
     private SubCancelable mCancelable;
     private int taskId = -1;
@@ -30,7 +30,7 @@ public abstract class NetSubscriber<T> implements Subscriber<T> {
     @Override
     public void onSubscribe(Subscription s) {
         s.request(Long.MAX_VALUE);
-        Log.e(TAG, "onSubscribe");
+        Logger.e("onSubscribe");
         if (taskId != -1) {
             mCancelable = new SubCancelable(s);
             NetPool.add(taskId, mCancelable);
@@ -39,7 +39,7 @@ public abstract class NetSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        Log.e(TAG, "onError");
+        Logger.e("onError");
         if (taskId != -1) {
             NetPool.remove(mCancelable);
         }
@@ -50,7 +50,7 @@ public abstract class NetSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onComplete() {
-        Log.e(TAG, "onComplete");
+        Logger.e("onComplete");
         if (taskId != -1) {
             NetPool.remove(mCancelable);
         }
