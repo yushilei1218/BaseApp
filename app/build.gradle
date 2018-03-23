@@ -59,4 +59,8 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
 
     compile 'com.orhanobut:logger:2.1.1'
+
+    compile 'com.google.dagger:dagger-android:2.14'
+    compile 'com.google.dagger:dagger-android-support:2.14' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
 }
