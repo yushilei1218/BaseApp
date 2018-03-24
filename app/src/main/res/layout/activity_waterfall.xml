@@ -9,17 +9,75 @@
     android:orientation="vertical"
     tools:context="com.shileiyu.baseapp.ui.waterfall.WaterfallActivity">
 
-    <include layout="@layout/operate_layout"/>
+    <include
+        layout="@layout/operate_layout"
+        android:visibility="gone"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/act_water_fall_swipe"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/act_water_fall_coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.shileiyu.baseapp.common.widget.LoadRecyclerView
-            android:id="@+id/act_water_fall_recycler"
+        <!--头部-->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/act_water_fall_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--可滚动-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="#ffe97b"
+                    android:gravity="center"
+                    android:text="banner"/>
+
+                <ViewFlipper
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                </ViewFlipper>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="#878686"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--悬停-->
+            <LinearLayout
+                android:id="@+id/act_water_fall_xuan_ting"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="#f5ff6f"
+                android:orientation="vertical"
+                app:layout_scrollFlags="enterAlways">
+
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/act_water_fall_ptr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.shileiyu.baseapp.common.widget.LoadRecyclerView
+                android:id="@+id/act_water_fall_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
 </LinearLayout>

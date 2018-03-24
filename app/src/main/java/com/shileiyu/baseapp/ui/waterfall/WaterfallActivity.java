@@ -1,11 +1,15 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.enums.DataState;
@@ -20,6 +24,10 @@ import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * 瀑布流
@@ -30,8 +38,15 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
 
     @BindView(R.id.act_water_fall_recycler)
     LoadRecyclerView mRecycler;
-    @BindView(R.id.act_water_fall_swipe)
-    SwipeRefreshLayout mSwipeLayout;
+    @BindView(R.id.act_water_fall_app_bar)
+    AppBarLayout mAppBar;
+    @BindView(R.id.act_water_fall_ptr)
+    PtrClassicFrameLayout mPtr;
+    @BindView(R.id.act_water_fall_xuan_ting)
+    LinearLayout mXuanTing;
+    @BindView(R.id.act_water_fall_coordinator)
+    CoordinatorLayout mCoordinator;
+
     private FooterAdapter mAdapter;
 
     @Override
@@ -44,8 +59,17 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
         return R.layout.activity_waterfall;
     }
 
+    private boolean isCanPtr = false;
+
     @Override
     protected void initView() {
+        mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                isCanPtr = appBarLayout.getTop() - mXuanTing.getHeight() <= -verticalOffset;
+                Logger.e("verticalOffset=" + verticalOffset + " appBarLayout height=" + appBarLayout.getHeight());
+            }
+        });
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
 
@@ -63,10 +87,16 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
             }
         });
 
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
-            public void onRefresh() {
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 presenter.load(true, LoadStyle.LOAD_REFRESH);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+
+                return isCanPtr && super.checkCanDoRefresh(frame, content, header);
             }
         });
         presenter.onStart();
@@ -96,7 +126,7 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
                 break;
             case LOAD_REFRESH:
                 if (!isShow) {
-                    mSwipeLayout.setRefreshing(false);
+                    mPtr.refreshComplete();
                 }
                 break;
             case LOAD_MORE:
