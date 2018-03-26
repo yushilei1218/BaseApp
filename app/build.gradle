@@ -28,6 +28,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // add library
+    compile('com.github.hotchemi:permissionsdispatcher:3.1.0') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    // 依赖以下两个库，会自动引用基础库与Android库
+    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
+    // if you use the support libraries
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
@@ -45,21 +52,14 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.r0adkll:slidableactivity:2.0.6'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile('com.github.hotchemi:permissionsdispatcher:3.1.0') {
-        // if you don't use android.app.Fragment you can exclude support for them
-        exclude module: "support-v13"
-    }
-    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
-    // 依赖以下两个库，会自动引用基础库与Android库
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
-    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
     compile 'com.orhanobut:logger:2.1.1'
     compile 'com.google.dagger:dagger-android:2.14'
     compile 'com.google.dagger:dagger-android-support:2.14'
-    // if you use the support libraries
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
 }

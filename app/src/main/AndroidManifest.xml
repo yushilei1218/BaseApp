@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".ui.waterfall.WaterfallActivity">
         </activity>
+        <activity android:name=".ui.glide.GlideActivity">
+        </activity>
     </application>
 
 </manifest>
