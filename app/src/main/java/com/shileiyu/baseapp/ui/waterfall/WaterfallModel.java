@@ -100,8 +100,8 @@ public class WaterfallModel implements WaterfallContract.IModel {
                                 Logger.e("onNext accept");
                                 if (isRefresh) {
 
-                                    boolean isEmpty = random.nextBoolean();
-                                    if (isEmpty) {
+                                    int tag = random.nextInt(10);
+                                    if (tag >= 7) {
                                         waterfallBeen.clear();
                                         callback.call(new TwoTuple<>(waterfallBeen, DataState.EMPTY));
                                         Log.e("WaterfallModel", "首页空集合 EMPTY");
