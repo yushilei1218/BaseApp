@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
+
     tools:context="com.shileiyu.baseapp.ui.glide.GlideActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/act_glide_download_only"
+            android:text="Download only"/>
+
+        <ImageView
+            android:id="@+id/act_glide_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="#ffe895"/>
+
+        <ImageView
+            android:id="@+id/act_glide_img2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffe895"/>
+
+        <ImageView
+            android:id="@+id/act_glide_img3"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffe895"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
