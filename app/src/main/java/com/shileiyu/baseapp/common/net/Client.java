@@ -1,5 +1,7 @@
 package com.shileiyu.baseapp.common.net;
 
+import com.shileiyu.baseapp.common.net.progress.ProgressInterceptor;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -15,6 +17,7 @@ public class Client {
     private Client() {
         okClient = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+                .addInterceptor(new ProgressInterceptor())
                 .build();
     }
 
