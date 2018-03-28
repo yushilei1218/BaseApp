@@ -11,6 +11,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.shileiyu.baseapp.BuildConfig;
 import com.shileiyu.baseapp.common.db.DbClient;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * @author shilei.yu
@@ -35,6 +36,14 @@ public class BaseApp extends Application {
                 e.printStackTrace();
             }
         });
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+        // Normal app init code...
     }
 
     private void logInit() {

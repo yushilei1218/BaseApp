@@ -32,7 +32,7 @@ public class ProgressInterceptor implements Interceptor {
 
     }
 
-    public static void addProgressListener(String url) {
+    public static void removeProgressListener(String url) {
         MAP.remove(url);
     }
 }

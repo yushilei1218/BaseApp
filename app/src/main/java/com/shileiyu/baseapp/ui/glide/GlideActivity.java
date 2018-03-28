@@ -50,6 +50,17 @@ public class GlideActivity extends BaseActivity {
     @BindView(R.id.progress)
     ProgressBar mProgressBar;
 
+    private Transformation[] arr = new Transformation[]{
+            new BlurTransformation(BaseApp.appContext, 30)
+            , new ColorFilterTransformation(this, Color.BLACK)
+            , new CropCircleTransformation(this)
+            , new CropSquareTransformation(this)
+            , new CropTransformation(this)
+            , new GrayscaleTransformation(this)
+            , new RoundedCornersTransformation(this, 20, 0)
+    };
+    private int index = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_glide;
@@ -70,6 +81,12 @@ public class GlideActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        ProgressInterceptor.removeProgressListener(URL);
+        super.onDestroy();
     }
 
     @OnClick({R.id.act_glide_img_static
@@ -125,17 +142,6 @@ public class GlideActivity extends BaseActivity {
                 })
                 .into(new MySimpleTarget());
     }
-
-    private Transformation[] arr = new Transformation[]{
-            new BlurTransformation(BaseApp.appContext, 30)
-            , new ColorFilterTransformation(this, Color.BLACK)
-            , new CropCircleTransformation(this)
-            , new CropSquareTransformation(this)
-            , new CropTransformation(this)
-            , new GrayscaleTransformation(this)
-            , new RoundedCornersTransformation(this, 20, 0)
-    };
-    private int index = 0;
 
     private void transformWithThirdPartTransformation() {
         Transformation t = arr[index % arr.length];
