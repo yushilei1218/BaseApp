@@ -28,6 +28,10 @@
         </activity>
         <activity android:name=".ui.glide.GlideActivity">
         </activity>
+
+        <meta-data
+            android:name="com.shileiyu.baseapp.ui.glide.GlideModuleImpl"
+            android:value="GlideModule"/>
     </application>
 
 </manifest>

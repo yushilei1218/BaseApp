@@ -73,7 +73,7 @@ public class GlideActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.act_glide_img:
-                Glide.with(this).load(URL).into(mImg);
+                Glide.with(this).load(new GlideUrl(URL)).into(mImg);
                 break;
             case R.id.act_glide_img2:
                 Glide.with(this).load(new GlideUrl("http://p1.pstatp.com/large/166200019850062839d3")).into(mImg2);

@@ -1,6 +1,7 @@
 package com.shileiyu.baseapp.common.net;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author shilei.yu
@@ -12,7 +13,9 @@ public class Client {
     private OkHttpClient okClient;
 
     private Client() {
-        okClient = new OkHttpClient.Builder().build();
+        okClient = new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+                .build();
     }
 
     public static synchronized Client instance() {
