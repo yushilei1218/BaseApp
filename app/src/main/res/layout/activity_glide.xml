@@ -47,6 +47,13 @@
             android:layout_marginTop="10dp"
             android:background="#ffe895"/>
 
+        <ImageView
+            android:id="@+id/act_glide_img5"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffe895"/>
+
     </LinearLayout>
 
 

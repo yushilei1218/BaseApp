@@ -62,4 +62,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
 }

@@ -11,6 +11,7 @@ import android.graphics.RectF;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils;
 
 /**
  * @author shilei.yu
@@ -27,21 +28,36 @@ public class RoundBitmapTransformation extends BitmapTransformation {
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        Bitmap result = Bitmap.createBitmap(toTransform.getWidth(), toTransform.getHeight(), Bitmap.Config.ARGB_8888);
+        if (toTransform == null) {
+            return null;
+        }
+        final Bitmap toReuse = pool.get(outWidth, outHeight, toTransform.getConfig() != null
+                ? toTransform.getConfig() : Bitmap.Config.ARGB_8888);
 
-        Canvas canvas = new Canvas(result);
-        canvas.drawColor(Color.TRANSPARENT);
+        Bitmap transformed;
+        if (toReuse != null) {
+            transformed = toReuse;
+        } else {
+            transformed = Bitmap.createBitmap(toTransform.getWidth(), toTransform.getHeight(), Bitmap.Config.ARGB_8888);
+        }
+        Canvas canvas = new Canvas(transformed);
+
         Paint paint = new Paint();
+
         paint.setShader(new BitmapShader(toTransform, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
         RectF rectF = new RectF(0f, 0f, toTransform.getWidth(), toTransform.getHeight());
         canvas.drawRoundRect(rectF, radius, radius, paint);
-        return result;
+        if (toReuse != null && !pool.put(toReuse)) {
+            toReuse.recycle();
+        }
+
+        return transformed;
+
     }
 
     @Override
     public String getId() {
-        Class<?> a = getClass();
-        return a.getPackage().getName() + "." + a.getName() + radius;
+        return "com.shileiyu.baseapp.ui.glide.RoundBitmapTransformation" + radius;
     }
 }
