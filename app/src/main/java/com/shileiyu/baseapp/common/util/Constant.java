@@ -9,4 +9,5 @@ public interface Constant {
     String GREEN_DAO = "GREEN_DAO";
     String WATER_FALL = "WATER_FALL";
     String GLIDE = "GLIDE";
+    String CALENDAR = "CALENDAR";
 }

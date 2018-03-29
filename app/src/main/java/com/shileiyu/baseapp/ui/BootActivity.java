@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.util.Constant;
+import com.shileiyu.baseapp.ui.calendar.CalendarActivity;
 import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
 import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
@@ -41,6 +42,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Constant.GREEN_DAO));
         data.add(new Bean(Constant.WATER_FALL));
         data.add(new Bean(Constant.GLIDE));
+        data.add(new Bean(Constant.CALENDAR));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -66,6 +68,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Constant.GLIDE:
                 intent = new Intent(this, GlideActivity.class);
+                break;
+            case Constant.CALENDAR:
+                intent = new Intent(this, CalendarActivity.class);
                 break;
             default:
                 break;

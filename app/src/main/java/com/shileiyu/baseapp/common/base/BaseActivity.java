@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrPosition;
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.ActivityTask;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -26,7 +28,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IRxAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Slidr.attach(this);
+        SlidrConfig.Builder builder = new SlidrConfig.Builder();
+        builder.edge(true).position(SlidrPosition.LEFT);
+        Slidr.attach(this, builder.build());
 
         setContentView(getLayoutId());
 

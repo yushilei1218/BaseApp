@@ -32,6 +32,9 @@
         <meta-data
             android:name="com.shileiyu.baseapp.ui.glide.GlideModuleImpl"
             android:value="GlideModule"/>
+
+        <activity android:name=".ui.calendar.CalendarActivity">
+        </activity>
     </application>
 
 </manifest>
