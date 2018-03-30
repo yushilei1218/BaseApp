@@ -38,6 +38,7 @@ public class BootActivity extends BaseActivity {
     @Override
     protected void initView() {
 
+
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
         data.add(new Bean(Constant.WATER_FALL));
