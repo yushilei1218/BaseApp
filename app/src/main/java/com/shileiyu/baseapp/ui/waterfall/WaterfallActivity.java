@@ -1,33 +1,35 @@
 package com.shileiyu.baseapp.ui.waterfall;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.bean.TwoTuple;
 import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.enums.LoadStyle;
 import com.shileiyu.baseapp.common.mvp.BaseMvpActivity;
+import com.shileiyu.baseapp.common.util.Util;
 import com.shileiyu.baseapp.common.widget.BaseViewHolder;
 import com.shileiyu.baseapp.common.widget.FooterAdapter;
 import com.shileiyu.baseapp.common.widget.ItemDelegate;
 import com.shileiyu.baseapp.common.widget.LoadRecyclerView;
+import com.shileiyu.baseapp.ui.waterfall.bean.ADBean;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -52,8 +54,19 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
     TextView mXuanTingTv;
     @BindView(R.id.act_water_fall_coordinator)
     CoordinatorLayout mCoordinator;
+    @BindView(R.id.act_water_fall_ad_flipper)
+    ViewFlipper mAdFlipper;
 
     private FooterAdapter mAdapter;
+
+    private View.OnClickListener mAdOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null && v.getTag() instanceof ADBean) {
+                showToast(((ADBean) v.getTag()).content);
+            }
+        }
+    };
 
     private boolean mIsCanDrag = true;
 
@@ -83,7 +96,7 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
                 });
             }
         }
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        final StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
 
         mRecycler.setLayoutManager(manager);
@@ -97,6 +110,15 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
             @Override
             public void onLoadingMore() {
                 presenter.load(false, LoadStyle.LOAD_MORE);
+            }
+        });
+
+        mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    manager.invalidateSpanAssignments();
+                }
             }
         });
 
@@ -118,6 +140,35 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
     @Override
     public void bind(List<WaterfallBean> root) {
         mAdapter.addRoot(root);
+    }
+
+    @Override
+    public void showAd(List<TwoTuple<ADBean, ADBean>> ads) {
+        mAdFlipper.removeAllViews();
+        boolean empty = Util.isEmpty(ads);
+        if (!empty) {
+            addChild2Flipper(ads);
+            mAdFlipper.startFlipping();
+        }
+        mAdFlipper.setVisibility(empty ? View.GONE : View.VISIBLE);
+    }
+
+    private void addChild2Flipper(List<TwoTuple<ADBean, ADBean>> ads) {
+        for (TwoTuple<ADBean, ADBean> ad : ads) {
+            View child = LayoutInflater.from(this).inflate(R.layout.item_ad, mAdFlipper, false);
+            TextView tv1 = child.findViewById(R.id.item_ad_tv1);
+            TextView tv2 = child.findViewById(R.id.item_ad_tv2);
+            showSingleAd(tv1, ad.v);
+            showSingleAd(tv2, ad.t);
+            mAdFlipper.addView(child);
+        }
+    }
+
+    private void showSingleAd(TextView tv1, ADBean v) {
+        tv1.setVisibility(v == null ? View.INVISIBLE : View.VISIBLE);
+        tv1.setOnClickListener(v == null ? null : mAdOnClickListener);
+        tv1.setText(v == null ? null : v.content);
+        tv1.setTag(v == null ? null : v);
     }
 
     @Override

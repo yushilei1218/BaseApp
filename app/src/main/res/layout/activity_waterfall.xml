@@ -39,8 +39,12 @@
                     android:text="banner"/>
 
                 <ViewFlipper
+                    android:id="@+id/act_water_fall_ad_flipper"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp">
+                    android:layout_height="60dp"
+                    android:background="#FFF"
+                    android:inAnimation="@anim/ad_in_anim"
+                    android:outAnimation="@anim/ad_out_anim">
 
                 </ViewFlipper>
 

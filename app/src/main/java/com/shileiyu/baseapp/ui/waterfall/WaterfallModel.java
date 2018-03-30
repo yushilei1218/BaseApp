@@ -12,6 +12,7 @@ import com.shileiyu.baseapp.common.enums.DataState;
 import com.shileiyu.baseapp.common.net.cancel.DisCancelable;
 import com.shileiyu.baseapp.common.net.observer.NetSubscriber;
 import com.shileiyu.baseapp.common.net.pool.NetPool;
+import com.shileiyu.baseapp.ui.waterfall.bean.ADBean;
 import com.shileiyu.baseapp.ui.waterfall.bean.WaterfallBean;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -128,6 +129,16 @@ public class WaterfallModel implements WaterfallContract.IModel {
                             }
                         });
 
+    }
+
+    @Override
+    public void loadAd(ICallBack<List<TwoTuple<ADBean, ADBean>>> callBack) {
+        List<TwoTuple<ADBean, ADBean>> data = new ArrayList<>();
+        data.add(new TwoTuple<>(new ADBean("测试广告111"), new ADBean("测试广告222")));
+        data.add(new TwoTuple<>(new ADBean("测试广告333"), new ADBean("测试广告444")));
+        data.add(new TwoTuple<>(new ADBean("测试广告555"), new ADBean("测试广告666")));
+        data.add(new TwoTuple<>(new ADBean("测试广告777"), (ADBean)null));
+        callBack.call(data);
     }
 
     private <T> Flowable<T> compose(Flowable<T> real) {
