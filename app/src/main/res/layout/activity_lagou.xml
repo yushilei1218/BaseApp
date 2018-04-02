@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    tools:context="com.shileiyu.baseapp.ui.lagou.LaGouActivity">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/act_la_gou_out_ptr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/act_la_gou_coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+            <!--Header部分-->
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/act_la_gou_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="#FFF"
+                android:clipChildren="false"
+                android:orientation="vertical">
+                <!--移动Header-->
+                <LinearLayout
+                    android:id="@+id/act_la_gou_scroll_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-48dp"
+                    android:orientation="vertical"
+                    app:layout_scrollFlags="scroll">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="#ffdede"
+                        android:text="Banner"/>
+
+                    <ViewFlipper
+                        android:id="@+id/act_la_gou_ad_flipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="#f5e9be"/>
+
+                    <include layout="@layout/item_header_tab"/>
+
+                    <include layout="@layout/item_header_type"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/gray"/>
+                </LinearLayout>
+                <!--悬停Header-->
+                <RelativeLayout
+                    android:id="@+id/act_la_gou_fixed_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#ff6767"
+                    app:layout_scrollFlags="enterAlways">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="列表"/>
+                </RelativeLayout>
+
+
+            </android.support.design.widget.AppBarLayout>
+            <!--内容部分-->
+            <FrameLayout
+                android:id="@+id/act_la_gou_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </FrameLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/act_la_gou_out_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_white_rect_corner"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="搜索职位"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_scan"/>
+    </LinearLayout>
+</FrameLayout>

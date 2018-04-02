@@ -1,0 +1,16 @@
+<in.srain.cube.views.ptr.PtrClassicFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fg_la_gou_ptr"
+    tools:context="com.shileiyu.baseapp.ui.lagou.LaGouFragment">
+
+    <com.shileiyu.baseapp.common.widget.LoadRecyclerView
+        android:id="@+id/fg_la_gou_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"/>
+
+</in.srain.cube.views.ptr.PtrClassicFrameLayout>

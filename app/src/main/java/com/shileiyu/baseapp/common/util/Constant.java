@@ -10,4 +10,5 @@ public interface Constant {
     String WATER_FALL = "WATER_FALL";
     String GLIDE = "GLIDE";
     String CALENDAR = "CALENDAR";
+    String LAGOU = "LAGOU";
 }

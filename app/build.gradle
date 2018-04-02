@@ -33,6 +33,7 @@ dependencies {
         exclude module: "support-v13"
     }
     // 依赖以下两个库，会自动引用基础库与Android库
+
     // if you use the support libraries
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
@@ -60,12 +61,13 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    compile 'org.greenrobot:eventbus:3.1.1'
+    compile 'com.android.support:gridlayout-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    compile 'com.prolificinteractive:material-calendarview:1.4.3'
-    compile 'org.greenrobot:eventbus:3.1.1'
 }
