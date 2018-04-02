@@ -148,7 +148,7 @@ public class WaterfallModel implements WaterfallContract.IModel {
 
 //new NetSubscriber<List<WaterfallBean>>(taskId) {
 //        @Override
-//        public void onFailed(Throwable t) {
+//        public void onFailed(Throwable first) {
 //            Logger.e("onFailed");
 //        }
 //

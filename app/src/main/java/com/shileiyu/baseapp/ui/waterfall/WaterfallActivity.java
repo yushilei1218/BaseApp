@@ -158,8 +158,8 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
             View child = LayoutInflater.from(this).inflate(R.layout.item_ad, mAdFlipper, false);
             TextView tv1 = child.findViewById(R.id.item_ad_tv1);
             TextView tv2 = child.findViewById(R.id.item_ad_tv2);
-            showSingleAd(tv1, ad.v);
-            showSingleAd(tv2, ad.t);
+            showSingleAd(tv1, ad.second);
+            showSingleAd(tv2, ad.first);
             mAdFlipper.addView(child);
         }
     }
@@ -207,7 +207,7 @@ public class WaterfallActivity extends BaseMvpActivity<WaterfallContract.IPresen
     public void notifyDataChanged(TwoTuple<LoadStyle, DataState> tuple) {
         mAdapter.notifyDataSetChanged();
 
-        switch (tuple.v) {
+        switch (tuple.second) {
             case EMPTY:
                 showError(-1, "首页无数据", "重试", new View.OnClickListener() {
                     @Override

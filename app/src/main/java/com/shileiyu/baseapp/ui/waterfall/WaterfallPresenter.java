@@ -39,7 +39,7 @@ public class WaterfallPresenter extends BasePresenter<WaterfallContract.IView> i
             public void call(TwoTuple<List<WaterfallBean>, DataState> data) {
                 view.changeLoadState(state, false);
 
-                view.notifyDataChanged(new TwoTuple<>(state, data.v));
+                view.notifyDataChanged(new TwoTuple<>(state, data.second));
             }
         });
     }

@@ -8,16 +8,16 @@ package com.shileiyu.baseapp.common.bean;
  */
 
 public class TwoTuple<T, V> {
-    public final T t;
-    public final V v;
+    public final T first;
+    public final V second;
 
-    public TwoTuple(T t, V v) {
-        this.t = t;
-        this.v = v;
+    public TwoTuple(T t, V second) {
+        this.first = t;
+        this.second = second;
     }
 
     public TwoTuple(TwoTuple<T, V> tuple) {
-        t = tuple.t;
-        v = tuple.v;
+        first = tuple.first;
+        second = tuple.second;
     }
 }

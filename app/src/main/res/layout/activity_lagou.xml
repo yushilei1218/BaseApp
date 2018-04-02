@@ -40,13 +40,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:background="#ffdede"
+                        android:gravity="center"
                         android:text="Banner"/>
 
                     <ViewFlipper
                         android:id="@+id/act_la_gou_ad_flipper"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="#f5e9be"/>
+                        android:layout_height="60dp"
+                        android:inAnimation="@anim/ad_in_anim"
+                        android:outAnimation="@anim/ad_out_anim"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:background="@color/light_gray"/>
 
                     <include layout="@layout/item_header_tab"/>
 
@@ -54,22 +61,32 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/gray"/>
+                        android:layout_height="8dp"
+                        android:background="@color/light_gray"/>
+
                 </LinearLayout>
+
                 <!--悬停Header-->
                 <RelativeLayout
                     android:id="@+id/act_la_gou_fixed_header"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="#ff6767"
                     app:layout_scrollFlags="enterAlways">
 
                     <TextView
+                        android:id="@+id/act_la_gou_content_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="列表"/>
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/title_size"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_gray"/>
                 </RelativeLayout>
 
 
@@ -88,13 +105,17 @@
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
+    <!--搜索输入框-->
     <LinearLayout
         android:id="@+id/act_la_gou_out_search_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="0dp"
@@ -102,13 +123,12 @@
             android:layout_weight="1"
             android:background="@drawable/bg_white_rect_corner"
             android:gravity="center"
-            android:padding="5dp"
             android:text="搜索职位"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:src="@mipmap/ic_scan"/>
     </LinearLayout>
 </FrameLayout>

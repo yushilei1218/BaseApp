@@ -35,7 +35,9 @@
 
         <activity android:name=".ui.calendar.CalendarActivity">
         </activity>
-        <activity android:name=".ui.lagou.LaGouActivity">
+        <activity
+            android:name=".ui.lagou.LaGouActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

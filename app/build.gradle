@@ -29,7 +29,7 @@ dependencies {
     })
     // add library
     compile('com.github.hotchemi:permissionsdispatcher:3.1.0') {
-        // if you don't use android.app.Fragment you can exclude support for them
+        // if you don'first use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
     // 依赖以下两个库，会自动引用基础库与Android库
