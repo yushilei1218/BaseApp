@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:padding="10dp"
-    app:columnCount="2"
-    app:rowCount="2">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <RelativeLayout
-        android:padding="10dp"
-        android:background="#FFF"
-        app:layout_columnWeight="1"
-        app:layout_rowSpan="2"
-        app:layout_rowWeight="1">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/light_gray">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_tab_1"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:background="#9f9f9f"
-        android:padding="10dp"
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="1">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/light_gray">
 
-    <RelativeLayout
-        android:background="#ffbbbb"
-        android:padding="10dp"
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_tab_2"/>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@color/light_gray">
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_tab_3"/>
+        </RelativeLayout>
 
+    </LinearLayout>
 
-</android.support.v7.widget.GridLayout>
+</LinearLayout>
