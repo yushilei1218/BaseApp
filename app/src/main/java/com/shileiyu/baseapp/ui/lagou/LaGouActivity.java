@@ -1,7 +1,6 @@
 package com.shileiyu.baseapp.ui.lagou;
 
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,7 +13,6 @@ import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.mvp.BaseMvpActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -41,6 +39,10 @@ public class LaGouActivity extends BaseMvpActivity<LaGouContract.IPresenter> imp
     @BindView(R.id.act_la_gou_fixed_header)
     View mFixedHeader;
 
+    private boolean isFullOpen = true;
+    private boolean isFullClose = false;
+    private LaGouFragment mFragment;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_lagou;
@@ -48,10 +50,18 @@ public class LaGouActivity extends BaseMvpActivity<LaGouContract.IPresenter> imp
 
     @Override
     protected void initView() {
+        mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                isFullOpen = verticalOffset == 0;
+                isFullClose = Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange();
+            }
+        });
+
         mOutPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return super.checkCanDoRefresh(frame, content, header);
+                return isFullOpen && super.checkCanDoRefresh(frame, content, header);
             }
 
             @Override
@@ -64,8 +74,15 @@ public class LaGouActivity extends BaseMvpActivity<LaGouContract.IPresenter> imp
                 }, 1000);
             }
         });
+        mFragment = new LaGouFragment();
+        mFragment.setListener(new LaGouFragment.CanDragListener() {
+            @Override
+            public boolean isCanDrag() {
+                return isFullClose;
+            }
+        });
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.act_la_gou_content_layout, new LaGouFragment()).commitAllowingStateLoss();
+                .add(R.id.act_la_gou_content_layout, mFragment).commitAllowingStateLoss();
     }
 
     @OnClick({
@@ -75,6 +92,7 @@ public class LaGouActivity extends BaseMvpActivity<LaGouContract.IPresenter> imp
         switch (view.getId()) {
             case R.id.act_la_gou_fixed_header:
                 mAppBar.setExpanded(true, true);
+                mFragment.setExpanded();
                 break;
             default:
                 break;

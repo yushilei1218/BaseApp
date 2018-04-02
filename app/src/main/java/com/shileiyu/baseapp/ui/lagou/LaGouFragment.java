@@ -35,10 +35,15 @@ public class LaGouFragment extends BaseFragment {
     @BindView(R.id.fg_la_gou_ptr)
     PtrClassicFrameLayout mPtr;
 
+    CanDragListener mListener;
+
     public LaGouFragment() {
         // Required empty public constructor
     }
 
+    public void setListener(CanDragListener listener) {
+        mListener = listener;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -48,6 +53,14 @@ public class LaGouFragment extends BaseFragment {
     @Override
     protected void initView() {
         mPtr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                if (mListener != null) {
+                    return mListener.isCanDrag() && super.checkCanDoRefresh(frame, content, header);
+                }
+                return super.checkCanDoRefresh(frame, content, header);
+            }
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 new Handler().postDelayed(new Runnable() {
@@ -70,8 +83,18 @@ public class LaGouFragment extends BaseFragment {
         mRecycler.setAdapter(adapter);
     }
 
+    public void setExpanded() {
+        if (mRecycler.getChildCount() > 0) {
+            mRecycler.smoothScrollToPosition(0);
+        }
+    }
+
     @Override
     public LifecycleProvider<FragmentEvent> getLifecycle() {
         return this;
+    }
+
+    public interface CanDragListener {
+        boolean isCanDrag();
     }
 }
