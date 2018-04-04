@@ -23,6 +23,12 @@
         android:layout_height="wrap_content"
         android:text="Activity get"/>
 
+    <Button
+        android:id="@+id/act_view_model_add_fg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragment add"/>
+
     <FrameLayout
         android:id="@+id/act_view_model_layout"
         android:layout_width="match_parent"
