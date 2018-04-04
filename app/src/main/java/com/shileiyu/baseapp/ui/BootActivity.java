@@ -40,6 +40,7 @@ public class BootActivity extends BaseActivity {
     @Override
     protected void initView() {
 //just test git2
+        //just test 3
 
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
