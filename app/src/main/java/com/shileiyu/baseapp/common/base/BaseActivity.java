@@ -105,7 +105,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IRxAct
     }
 
     @Override
-    public LifecycleProvider<ActivityEvent> getLifecycle() {
+    public LifecycleProvider<ActivityEvent> getRxLifecycle() {
         return this;
     }
 }

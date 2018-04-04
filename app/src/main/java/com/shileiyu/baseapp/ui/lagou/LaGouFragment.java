@@ -89,11 +89,6 @@ public class LaGouFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public LifecycleProvider<FragmentEvent> getLifecycle() {
-        return this;
-    }
-
     public interface CanDragListener {
         boolean isCanDrag();
     }

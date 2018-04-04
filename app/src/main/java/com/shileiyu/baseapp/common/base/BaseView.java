@@ -171,7 +171,7 @@ public class BaseView implements IBaseView {
     }
 
     @Override
-    public LifecycleProvider getLifecycle() {
+    public LifecycleProvider getRxLifecycle() {
         return null;
     }
 

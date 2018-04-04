@@ -18,6 +18,7 @@ import com.shileiyu.baseapp.ui.calendar.CalendarActivity;
 import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
 import com.shileiyu.baseapp.ui.lagou.LaGouActivity;
+import com.shileiyu.baseapp.ui.viewmodel.ViewModelActivity;
 import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Constant.GLIDE));
         data.add(new Bean(Constant.CALENDAR));
         data.add(new Bean(Constant.LAGOU));
+        data.add(new Bean(Constant.VIEWMODEL));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -77,6 +79,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Constant.LAGOU:
                 intent = new Intent(this, LaGouActivity.class);
+                break;
+            case Constant.VIEWMODEL:
+                intent = new Intent(this, ViewModelActivity.class);
                 break;
             default:
                 break;

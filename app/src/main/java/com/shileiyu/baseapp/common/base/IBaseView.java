@@ -26,5 +26,5 @@ public interface IBaseView<E> extends IOperateView {
 
     int taskId();
 
-    LifecycleProvider<E> getLifecycle();
+    LifecycleProvider<E> getRxLifecycle();
 }

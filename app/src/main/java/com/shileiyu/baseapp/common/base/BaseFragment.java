@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.shileiyu.baseapp.common.net.pool.NetPool;
 import com.shileiyu.baseapp.common.util.Util;
+import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -98,5 +99,10 @@ public abstract class BaseFragment extends RxFragment implements IRxFragmentBase
     @Override
     public int taskId() {
         return this.hashCode();
+    }
+
+    @Override
+    public LifecycleProvider<FragmentEvent> getRxLifecycle() {
+        return this;
     }
 }
