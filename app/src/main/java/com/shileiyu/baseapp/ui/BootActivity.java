@@ -46,6 +46,8 @@ public class BootActivity extends BaseActivity {
 
         // dev test 5
 
+        //master test 6
+
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
         data.add(new Bean(Constant.WATER_FALL));
