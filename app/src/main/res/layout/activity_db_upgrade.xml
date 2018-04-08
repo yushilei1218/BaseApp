@@ -68,6 +68,13 @@
                 android:text="-Query BeanD class"
                 android:textAllCaps="false"/>
 
+            <Button
+                android:id="@+id/bean_e_class_checker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Assert E class"
+                android:textAllCaps="false"/>
+
         </com.google.android.flexbox.FlexboxLayout>
     </LinearLayout>
 

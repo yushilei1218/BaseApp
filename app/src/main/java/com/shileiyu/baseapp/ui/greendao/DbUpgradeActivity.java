@@ -1,6 +1,7 @@
 package com.shileiyu.baseapp.ui.greendao;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import com.shileiyu.baseapp.common.bean.BeanA;
 import com.shileiyu.baseapp.common.bean.BeanADao;
 import com.shileiyu.baseapp.common.bean.BeanD;
 import com.shileiyu.baseapp.common.bean.BeanDDao;
+import com.shileiyu.baseapp.common.bean.BeanE;
+import com.shileiyu.baseapp.common.bean.BeanEDao;
 import com.shileiyu.baseapp.common.bean.DaoSession;
 import com.shileiyu.baseapp.common.db.DbClient;
 import com.shileiyu.baseapp.common.util.Util;
@@ -37,7 +40,13 @@ public class DbUpgradeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.bean_a_class_del, R.id.bean_a_class_add, R.id.bean_a_class_query, R.id.bean_b_class_del, R.id.bean_b_class_add, R.id.bean_b_class_query})
+    @OnClick({R.id.bean_a_class_del,
+            R.id.bean_a_class_add,
+            R.id.bean_a_class_query,
+            R.id.bean_b_class_del,
+            R.id.bean_b_class_add,
+            R.id.bean_e_class_checker,
+            R.id.bean_b_class_query})
     public void onViewClicked(View view) {
         BeanADao aDao = mDaoSession.getBeanADao();
         BeanDDao dDao = mDaoSession.getBeanDDao();
@@ -49,6 +58,7 @@ public class DbUpgradeActivity extends BaseActivity {
             case R.id.bean_a_class_add:
                 long count = aDao.count() + 1;
                 BeanA a = new BeanA("item " + count, System.currentTimeMillis());
+                a.setDbUpgrade2("upgrade " + count);
                 aDao.insert(a);
                 break;
             case R.id.bean_a_class_query:
@@ -65,6 +75,17 @@ public class DbUpgradeActivity extends BaseActivity {
             case R.id.bean_b_class_query:
                 List<BeanD> beanCs = dDao.loadAll();
                 mTv.setText(Util.toJson(beanCs));
+                break;
+            case R.id.bean_e_class_checker:
+                final BeanEDao beanEDao = mDaoSession.getBeanEDao();
+                beanEDao.insert(new BeanE("item e"));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<BeanE> beanEs = beanEDao.loadAll();
+                        mTv.setText(Util.toJson(beanEs));
+                    }
+                }, 500);
                 break;
             default:
                 break;

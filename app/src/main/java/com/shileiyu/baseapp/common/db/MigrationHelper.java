@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.shileiyu.baseapp.common.bean.BeanADao;
 import com.shileiyu.baseapp.common.bean.DaoMaster;
 
 
@@ -34,11 +35,12 @@ public class MigrationHelper {
         return instance;
     }
 
+
     public void migrate(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         generateTempTables(db, daoClasses);
         for (Class<? extends AbstractDao<?, ?>> c : daoClasses) {
             try {
-                Method dropTable = c.getMethod("dropTable", Database.class, Boolean.class);
+                Method dropTable = c.getMethod("dropTable", Database.class, Boolean.TYPE);
                 dropTable.invoke(null, db, true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -165,5 +167,30 @@ public class MigrationHelper {
             }
         }
         return columns;
+    }
+
+    public static void main(String[] at) {
+        try {
+            Class<BeanADao> daoClass = BeanADao.class;
+            Method[] methods = daoClass.getMethods();
+            Method temp = null;
+            for (Method m : methods) {
+                System.out.println();
+                String name = m.getName();
+                String s = Arrays.toString(m.getParameterTypes());
+                System.out.println("method name: " + name + " Params: " + s);
+                if (name.equals("dropTable")) {
+                    temp = m;
+                }
+            }
+            if (temp != null) {
+                Method method = daoClass.getMethod(temp.getName(), temp.getParameterTypes());
+                System.out.println("找到啦 " + method);
+            }
+            Method dropTable = daoClass.getMethod("dropTable", Database.class, Boolean.TYPE);
+            System.out.println("找到啦2 " + dropTable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
