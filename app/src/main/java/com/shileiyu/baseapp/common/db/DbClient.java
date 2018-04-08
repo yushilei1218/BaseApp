@@ -2,7 +2,10 @@ package com.shileiyu.baseapp.common.db;
 
 import android.support.annotation.NonNull;
 
+import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.common.base.BaseApp;
+import com.shileiyu.baseapp.common.bean.BeanA;
+import com.shileiyu.baseapp.common.bean.BeanADao;
 import com.shileiyu.baseapp.common.bean.DaoMaster;
 import com.shileiyu.baseapp.common.bean.DaoSession;
 import com.shileiyu.baseapp.common.db.normal.ResultTask;
@@ -54,7 +57,25 @@ public class DbClient {
 
     private DbClient() {
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(BaseApp.appContext, ENCRYPTED ? "notes-db-encrypted" : "notes-db");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(BaseApp.appContext, ENCRYPTED ? "notes-db-encrypted" : "notes-db") {
+            @Override
+            public void onUpgrade(Database db, int oldVersion, int newVersion) {
+                Logger.d("onUpgrade oldVersion=" + oldVersion + " newVersion=" + newVersion);
+                //升级处理
+                int tempOld = oldVersion;
+                while (tempOld++ <= newVersion) {
+                    switch (tempOld) {
+                        case 2:
+                            break;
+                        case 3:
+                            MigrationHelper.getInstance().migrate(db, BeanADao.class);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        };
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         mDaoSession = new DaoMaster(db).newSession();
 

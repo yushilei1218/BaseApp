@@ -7,6 +7,7 @@ package com.shileiyu.baseapp.common.util;
 
 public interface Constant {
     String GREEN_DAO = "GREEN_DAO";
+    String DAO_UPGRADE = "DAO_UPGRADE";
     String WATER_FALL = "WATER_FALL";
     String GLIDE = "GLIDE";
     String CALENDAR = "CALENDAR";

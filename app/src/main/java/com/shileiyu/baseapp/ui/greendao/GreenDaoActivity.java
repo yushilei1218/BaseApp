@@ -1,11 +1,13 @@
 package com.shileiyu.baseapp.ui.greendao;
 
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.bean.BeanA;
@@ -20,6 +22,9 @@ import com.shileiyu.baseapp.common.db.rx.DbCallable;
 import com.shileiyu.baseapp.common.db.rx.DbListCallable;
 import com.shileiyu.baseapp.common.util.Util;
 
+import org.greenrobot.greendao.async.AsyncOperation;
+import org.greenrobot.greendao.async.AsyncOperationListener;
+import org.greenrobot.greendao.async.AsyncSession;
 import org.greenrobot.greendao.rx.RxDao;
 
 import java.util.ArrayList;
@@ -49,7 +54,18 @@ public class GreenDaoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        RxDao<BeanA, Long> rx = DbClient.instance().getDaoSession().getBeanADao().rx();
+        DbClient instance = DbClient.instance();
+        //异步
+        AsyncSession asyncSession = instance.getDaoSession().startAsyncSession();
+        asyncSession.setListener(new AsyncOperationListener() {
+            @Override
+            public void onAsyncOperationCompleted(AsyncOperation operation) {
+                Logger.d("onAsyncOperationCompleted " + operation + " Thread " + Thread.currentThread());
+            }
+        });
+        asyncSession.insert(new BeanA("just test", System.currentTimeMillis()));
+        //自定义的异步
+        RxDao<BeanA, Long> rx = instance.getDaoSession().getBeanADao().rx();
         rx.loadAll().subscribe(new Subscriber<List<BeanA>>() {
             @Override
             public void onCompleted() {

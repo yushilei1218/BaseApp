@@ -28,11 +28,15 @@ public class BeanA {
     @Transient
     private long time;
 
-    @Generated(hash = 1566525127)
-    public BeanA(Long id, String name, Date date) {
+    @Index(name = "dbUpgrade")
+    private String dbUpgrade;
+
+    @Generated(hash = 2138792952)
+    public BeanA(Long id, String name, Date date, String dbUpgrade) {
         this.id = id;
         this.name = name;
         this.date = date;
+        this.dbUpgrade = dbUpgrade;
     }
 
     @Generated(hash = 1374877907)
@@ -74,5 +78,13 @@ public class BeanA {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getDbUpgrade() {
+        return this.dbUpgrade;
+    }
+
+    public void setDbUpgrade(String dbUpgrade) {
+        this.dbUpgrade = dbUpgrade;
     }
 }

@@ -16,6 +16,7 @@ import com.shileiyu.baseapp.common.base.BaseActivity;
 import com.shileiyu.baseapp.common.util.Constant;
 import com.shileiyu.baseapp.ui.calendar.CalendarActivity;
 import com.shileiyu.baseapp.ui.glide.GlideActivity;
+import com.shileiyu.baseapp.ui.greendao.DbUpgradeActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
 import com.shileiyu.baseapp.ui.lagou.LaGouActivity;
 import com.shileiyu.baseapp.ui.viewmodel.ViewModelActivity;
@@ -58,6 +59,7 @@ public class BootActivity extends BaseActivity {
 
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
+        data.add(new Bean(Constant.DAO_UPGRADE));
         data.add(new Bean(Constant.WATER_FALL));
         data.add(new Bean(Constant.GLIDE));
         data.add(new Bean(Constant.CALENDAR));
@@ -97,6 +99,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Constant.VIEWMODEL:
                 intent = new Intent(this, ViewModelActivity.class);
+                break;
+            case Constant.DAO_UPGRADE:
+                intent = new Intent(this, DbUpgradeActivity.class);
                 break;
             default:
                 break;
