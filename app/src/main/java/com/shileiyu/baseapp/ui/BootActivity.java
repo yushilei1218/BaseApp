@@ -57,6 +57,8 @@ public class BootActivity extends BaseActivity {
 
         //user b dev test 6
 
+        //user b dev test 7
+
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
         data.add(new Bean(Constant.DAO_UPGRADE));
