@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * GreenDao 数据库升级辅助类
+ *
  * @author shilei.yu
  * @since on 2018/4/8.
  */
@@ -37,7 +39,9 @@ public class MigrationHelper {
 
 
     public void migrate(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
+        //将原来的表 迁移到临时的 表
         generateTempTables(db, daoClasses);
+        //删除发生变更的表
         for (Class<? extends AbstractDao<?, ?>> c : daoClasses) {
             try {
                 Method dropTable = c.getMethod("dropTable", Database.class, Boolean.TYPE);
@@ -46,8 +50,9 @@ public class MigrationHelper {
                 e.printStackTrace();
             }
         }
-        //DaoMaster.dropAllTables(db, true);
+        //版本升级 创建需要创建的表
         DaoMaster.createAllTables(db, true);
+        //将临时表的数据迁移到真实的表中
         restoreData(db, daoClasses);
     }
 
@@ -167,30 +172,5 @@ public class MigrationHelper {
             }
         }
         return columns;
-    }
-
-    public static void main(String[] at) {
-        try {
-            Class<BeanADao> daoClass = BeanADao.class;
-            Method[] methods = daoClass.getMethods();
-            Method temp = null;
-            for (Method m : methods) {
-                System.out.println();
-                String name = m.getName();
-                String s = Arrays.toString(m.getParameterTypes());
-                System.out.println("method name: " + name + " Params: " + s);
-                if (name.equals("dropTable")) {
-                    temp = m;
-                }
-            }
-            if (temp != null) {
-                Method method = daoClass.getMethod(temp.getName(), temp.getParameterTypes());
-                System.out.println("找到啦 " + method);
-            }
-            Method dropTable = daoClass.getMethod("dropTable", Database.class, Boolean.TYPE);
-            System.out.println("找到啦2 " + dropTable);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
