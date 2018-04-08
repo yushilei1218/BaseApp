@@ -66,9 +66,9 @@ public class DbClient {
                 while (tempOld++ <= newVersion) {
                     switch (tempOld) {
                         case 2:
+                            MigrationHelper.getInstance().migrate(db, BeanADao.class);
                             break;
                         case 3:
-                            MigrationHelper.getInstance().migrate(db, BeanADao.class);
                             break;
                         default:
                             break;

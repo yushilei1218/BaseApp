@@ -31,13 +31,6 @@ public class BeanA {
     @Index(name = "dbUpgrade")
     private String dbUpgrade;
 
-    @Generated(hash = 2138792952)
-    public BeanA(Long id, String name, Date date, String dbUpgrade) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-        this.dbUpgrade = dbUpgrade;
-    }
 
     @Generated(hash = 1374877907)
     public BeanA() {
@@ -46,6 +39,14 @@ public class BeanA {
     public BeanA(String name, long time) {
         this.name = name;
         this.time = time;
+    }
+
+    @Generated(hash = 2138792952)
+    public BeanA(Long id, String name, Date date, String dbUpgrade) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.dbUpgrade = dbUpgrade;
     }
 
     public Long getId() {

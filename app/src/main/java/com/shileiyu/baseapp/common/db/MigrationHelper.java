@@ -12,6 +12,7 @@ import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,8 +36,16 @@ public class MigrationHelper {
 
     public void migrate(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         generateTempTables(db, daoClasses);
-        DaoMaster.dropAllTables(db, true);
-        DaoMaster.createAllTables(db, false);
+        for (Class<? extends AbstractDao<?, ?>> c : daoClasses) {
+            try {
+                Method dropTable = c.getMethod("dropTable", Database.class, Boolean.class);
+                dropTable.invoke(null, db, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //DaoMaster.dropAllTables(db, true);
+        DaoMaster.createAllTables(db, true);
         restoreData(db, daoClasses);
     }
 
