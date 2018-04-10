@@ -17,14 +17,21 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import yanzhikai.textpath.AsyncTextPathView;
+import yanzhikai.textpath.SyncTextPathView;
 
 
 public class CalendarActivity extends BaseActivity {
 
 
     @BindView(R.id.act_calendar_material)
-    MaterialCalendarView mCalendar; @BindView(R.id.path_view)
+    MaterialCalendarView mCalendar;
+    @BindView(R.id.path_view)
     PathTextView pathView;
+    @BindView(R.id.async_path_view)
+    AsyncTextPathView apathView;
+    @BindView(R.id.sync_path_view)
+    SyncTextPathView spathView;
 
     @Override
     protected int getLayoutId() {
@@ -36,6 +43,8 @@ public class CalendarActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        apathView.startAnimation(0,1);
+        spathView.startAnimation(1,0);
         mCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {

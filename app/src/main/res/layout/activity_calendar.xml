@@ -9,12 +9,34 @@
     android:orientation="vertical"
     tools:context="com.shileiyu.baseapp.ui.calendar.CalendarActivity">
 
+    <yanzhikai.textpath.SyncTextPathView
+        android:layout_width="match_parent"
+        android:id="@+id/sync_path_view"
+        android:layout_height="wrap_content"
+        app:duration="12000"
+        app:showPainter="true"
+        app:text="2017"
+        app:textInCenter="true"
+        app:textSize="60sp"/>
+
+    <yanzhikai.textpath.AsyncTextPathView
+        android:id="@+id/async_path_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:duration="12000"
+        app:showPainter="true"
+        app:text="C哩C哩"
+        app:textInCenter="true"
+        app:textSize="62sp"
+        />
+
     <com.shileiyu.baseapp.common.widget.PathTextView
         android:id="@+id/path_view"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:textSize="26sp"
-        android:text="你好"/>
+        android:text="你好"
+        android:textSize="26sp"/>
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/act_calendar_material"
