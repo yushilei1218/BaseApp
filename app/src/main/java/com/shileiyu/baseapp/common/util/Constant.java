@@ -13,4 +13,5 @@ public interface Constant {
     String CALENDAR = "CALENDAR";
     String LAGOU = "LAGOU";
     String VIEWMODEL = "VIEWMODEL";
+    String OCR = "OCR";
 }

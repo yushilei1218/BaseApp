@@ -19,6 +19,7 @@ import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.DbUpgradeActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
 import com.shileiyu.baseapp.ui.lagou.LaGouActivity;
+import com.shileiyu.baseapp.ui.ocr.OcrActivity;
 import com.shileiyu.baseapp.ui.viewmodel.ViewModelActivity;
 import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
 
@@ -67,6 +68,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Constant.CALENDAR));
         data.add(new Bean(Constant.LAGOU));
         data.add(new Bean(Constant.VIEWMODEL));
+        data.add(new Bean(Constant.OCR));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -104,6 +106,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Constant.DAO_UPGRADE:
                 intent = new Intent(this, DbUpgradeActivity.class);
+                break;
+            case Constant.OCR:
+                intent = new Intent(this, OcrActivity.class);
                 break;
             default:
                 break;

@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    defaultConfig {
+        ndk {
+            abiFilters "armeabi", "x86" ,"armeabi-v7a"
+        }
+    }
 }
 greendao {
     schemaVersion 2
@@ -66,6 +71,7 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.google.android:flexbox:0.3.2'
     implementation 'com.yanzhikai:TextPathView:0.1.2'
+    implementation 'com.rmtheis:tess-two:8.0.0'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
