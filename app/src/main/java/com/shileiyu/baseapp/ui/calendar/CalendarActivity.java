@@ -10,6 +10,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnRangeSelectedListener;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.base.BaseActivity;
+import com.shileiyu.baseapp.common.widget.PathTextView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +23,8 @@ public class CalendarActivity extends BaseActivity {
 
 
     @BindView(R.id.act_calendar_material)
-    MaterialCalendarView mCalendar;
+    MaterialCalendarView mCalendar; @BindView(R.id.path_view)
+    PathTextView pathView;
 
     @Override
     protected int getLayoutId() {

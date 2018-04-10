@@ -9,6 +9,13 @@
     android:orientation="vertical"
     tools:context="com.shileiyu.baseapp.ui.calendar.CalendarActivity">
 
+    <com.shileiyu.baseapp.common.widget.PathTextView
+        android:id="@+id/path_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="26sp"
+        android:text="你好"/>
+
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/act_calendar_material"
         android:layout_width="match_parent"
