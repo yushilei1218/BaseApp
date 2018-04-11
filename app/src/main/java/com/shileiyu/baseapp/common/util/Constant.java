@@ -14,4 +14,5 @@ public interface Constant {
     String LAGOU = "LAGOU";
     String VIEWMODEL = "VIEWMODEL";
     String OCR = "OCR";
+    String PICK_IMG = "PICK_IMG";
 }

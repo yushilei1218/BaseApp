@@ -45,6 +45,12 @@
         </activity>
         <activity android:name=".ui.ocr.OcrActivity">
         </activity>
+        <activity android:name=".ui.ucrop.UCropWrappActivity">
+        </activity>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>
