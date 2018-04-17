@@ -54,7 +54,7 @@ public class BootActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+//2.1.0版本
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Constant.GREEN_DAO));
         data.add(new Bean(Constant.DAO_UPGRADE));
