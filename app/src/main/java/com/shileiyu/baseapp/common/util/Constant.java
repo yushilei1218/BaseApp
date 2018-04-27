@@ -2,17 +2,8 @@ package com.shileiyu.baseapp.common.util;
 
 /**
  * @author shilei.yu
- * @since on 2018/3/21.
+ * @since on 2018/4/27.
  */
-
 public interface Constant {
-    String GREEN_DAO = "GREEN_DAO";
-    String DAO_UPGRADE = "DAO_UPGRADE";
-    String WATER_FALL = "WATER_FALL";
-    String GLIDE = "GLIDE";
-    String CALENDAR = "CALENDAR";
-    String LAGOU = "LAGOU";
-    String VIEWMODEL = "VIEWMODEL";
-    String OCR = "OCR";
-    String PICK_IMG = "PICK_IMG";
+    String PATH = "/router/test";
 }

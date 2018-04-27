@@ -101,4 +101,16 @@ public class BeanA {
     public void setDbUpgrade2(String dbUpgrade2) {
         this.dbUpgrade2 = dbUpgrade2;
     }
+
+    @Override
+    public String toString() {
+        return "BeanA{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", dbUpgrade='" + dbUpgrade + '\'' +
+                ", dbUpgrade2='" + dbUpgrade2 + '\'' +
+                '}';
+    }
 }

@@ -47,10 +47,49 @@
         </activity>
         <activity android:name=".ui.ucrop.UCropWrappActivity">
         </activity>
-
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <!--ARouter-->
+        <activity android:name=".ui.arouter.ARouterActivity">
+            <!-- Schame -->
+            <intent-filter>
+                <data
+                    android:host="m.yushilei.com"
+                    android:scheme="http"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
+            <intent-filter>
+                <data
+                    android:host="m.yushilei.com"
+                    android:scheme="https"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
+            <intent-filter>
+                <data
+                    android:host="m.yushilei.com"
+                    android:scheme="myscheme"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.arouter.RouterTestActivity">
+        </activity>
     </application>
 
 </manifest>

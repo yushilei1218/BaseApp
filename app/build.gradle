@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion 27
@@ -21,6 +22,12 @@ android {
     defaultConfig {
         ndk {
             abiFilters "armeabi", "x86", "armeabi-v7a"
+        }
+        //ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
         }
     }
 }
@@ -80,4 +87,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    api 'com.alibaba:arouter-api:1.2.4'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
 }

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -18,9 +17,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.shileiyu.baseapp.R;
 import com.shileiyu.baseapp.common.base.BaseActivity;
+import com.shileiyu.baseapp.common.bean.BeanA;
 import com.shileiyu.baseapp.common.util.Constant;
+import com.shileiyu.baseapp.common.util.Item;
 import com.shileiyu.baseapp.ui.calendar.CalendarActivity;
 import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.DbUpgradeActivity;
@@ -56,15 +58,16 @@ public class BootActivity extends BaseActivity {
     protected void initView() {
 //2.1.0版本
         List<Bean> data = new ArrayList<>();
-        data.add(new Bean(Constant.GREEN_DAO));
-        data.add(new Bean(Constant.DAO_UPGRADE));
-        data.add(new Bean(Constant.WATER_FALL));
-        data.add(new Bean(Constant.GLIDE));
-        data.add(new Bean(Constant.CALENDAR));
-        data.add(new Bean(Constant.LAGOU));
-        data.add(new Bean(Constant.VIEWMODEL));
-        data.add(new Bean(Constant.OCR));
-        data.add(new Bean(Constant.PICK_IMG));
+        data.add(new Bean(Item.GREEN_DAO));
+        data.add(new Bean(Item.DAO_UPGRADE));
+        data.add(new Bean(Item.WATER_FALL));
+        data.add(new Bean(Item.GLIDE));
+        data.add(new Bean(Item.CALENDAR));
+        data.add(new Bean(Item.LAGOU));
+        data.add(new Bean(Item.VIEWMODEL));
+        data.add(new Bean(Item.OCR));
+        data.add(new Bean(Item.PICK_IMG));
+        data.add(new Bean(Item.ROUTE1));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -82,32 +85,35 @@ public class BootActivity extends BaseActivity {
     private void openActivity(Bean item) {
         Intent intent = null;
         switch (item.name) {
-            case Constant.GREEN_DAO:
+            case Item.GREEN_DAO:
                 intent = new Intent(this, GreenDaoActivity.class);
                 break;
-            case Constant.WATER_FALL:
+            case Item.WATER_FALL:
                 intent = new Intent(this, WaterfallActivity.class);
                 break;
-            case Constant.GLIDE:
+            case Item.GLIDE:
                 intent = new Intent(this, GlideActivity.class);
                 break;
-            case Constant.CALENDAR:
+            case Item.CALENDAR:
                 intent = new Intent(this, CalendarActivity.class);
                 break;
-            case Constant.LAGOU:
+            case Item.LAGOU:
                 intent = new Intent(this, LaGouActivity.class);
                 break;
-            case Constant.VIEWMODEL:
+            case Item.VIEWMODEL:
                 intent = new Intent(this, ViewModelActivity.class);
                 break;
-            case Constant.DAO_UPGRADE:
+            case Item.DAO_UPGRADE:
                 intent = new Intent(this, DbUpgradeActivity.class);
                 break;
-            case Constant.OCR:
+            case Item.OCR:
                 intent = new Intent(this, OcrActivity.class);
                 break;
-            case Constant.PICK_IMG:
+            case Item.PICK_IMG:
                 pickFromGallery();
+                return;
+            case Item.ROUTE1:
+                openPageByRouter();
                 return;
             default:
                 break;
@@ -116,6 +122,18 @@ public class BootActivity extends BaseActivity {
             startActivity(intent);
         }
 
+    }
+
+    private void openPageByRouter() {
+        // 1. 应用内简单的跳转(通过URL跳转在'进阶用法'中)
+        ARouter.getInstance().build(Constant.PATH).navigation();
+
+        // 2. 跳转并携带参数
+        ARouter.getInstance().build(Constant.PATH)
+                .withLong("key1", 666L)
+                .withString("key3", "888")
+                .withObject("key4", new BeanA("Jack", System.currentTimeMillis()))
+                .navigation();
     }
 
     private static final class Bean {
