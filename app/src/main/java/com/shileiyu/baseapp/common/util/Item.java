@@ -16,4 +16,5 @@ public interface Item {
     String OCR = "OCR";
     String PICK_IMG = "PICK_IMG";
     String ROUTE1 = "ROUTE1";
+    String MATRIX = "MATRIX";
 }

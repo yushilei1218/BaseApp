@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".common.base.BaseApp"
@@ -51,8 +52,9 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <!--ARouter-->
+        <!-- ARouter -->
         <activity android:name=".ui.arouter.ARouterActivity">
+
             <!-- Schame -->
             <intent-filter>
                 <data
@@ -64,7 +66,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
-
             <intent-filter>
                 <data
                     android:host="m.yushilei.com"
@@ -75,7 +76,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
-
             <intent-filter>
                 <data
                     android:host="m.yushilei.com"
@@ -87,8 +87,9 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.arouter.RouterTestActivity">
+        </activity>
+        <activity android:name=".ui.matrix.MatrixActivity">
         </activity>
     </application>
 

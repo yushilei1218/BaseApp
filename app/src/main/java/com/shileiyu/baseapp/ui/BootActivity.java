@@ -28,6 +28,7 @@ import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.DbUpgradeActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
 import com.shileiyu.baseapp.ui.lagou.LaGouActivity;
+import com.shileiyu.baseapp.ui.matrix.MatrixActivity;
 import com.shileiyu.baseapp.ui.ocr.OcrActivity;
 import com.shileiyu.baseapp.ui.viewmodel.ViewModelActivity;
 import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
@@ -68,6 +69,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Item.OCR));
         data.add(new Bean(Item.PICK_IMG));
         data.add(new Bean(Item.ROUTE1));
+        data.add(new Bean(Item.MATRIX));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -115,6 +117,9 @@ public class BootActivity extends BaseActivity {
             case Item.ROUTE1:
                 openPageByRouter();
                 return;
+            case Item.MATRIX:
+                intent = new Intent(this, MatrixActivity.class);
+                break;
             default:
                 break;
         }
