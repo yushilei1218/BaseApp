@@ -1,6 +1,8 @@
 package com.shileiyu.baseapp.common.net;
 
 import com.shileiyu.baseapp.common.bean.DiscoveryBean;
+import com.shileiyu.baseapp.common.bean.HttpResult;
+import com.shileiyu.baseapp.common.bean.MyBean;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -27,8 +29,18 @@ public class NetWork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Retrofit wfit = new Retrofit.Builder()
+                .baseUrl("https://www.sojson.com")
+                .client(Client.instance().getClient())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         sApi = retrofit.create(Api.class);
+        wApi = wfit.create(WeatherApi.class);
+
     }
+
+    public static WeatherApi wApi;
 
     public interface Api {
         @GET("/mobile/discovery/v3/recommend/ts-1500624532898")
@@ -39,5 +51,13 @@ public class NetWork {
 
 //        @GET("/mobile/discovery/v1/recommend/albums")
 //        Call<RecommendBean> getRecommend(@Query("pageId") int pageId, @Query("pageSize") int pageSize);
+    }
+
+    public interface WeatherApi {
+        @GET("/open/api/weather/json.shtml")
+        Call<HttpResult<MyBean>> loadWeather(@Query("city") String city);
+
+        @GET("/open/api/weather/json.shtml")
+        Flowable<HttpResult<MyBean>> loadWeather2(@Query("city") String city);
     }
 }
