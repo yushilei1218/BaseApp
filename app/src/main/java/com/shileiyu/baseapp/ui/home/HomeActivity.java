@@ -14,6 +14,7 @@ import com.shileiyu.baseapp.common.bean.HttpResult;
 import com.shileiyu.baseapp.common.bean.MyBean;
 import com.shileiyu.baseapp.common.mvp.BaseMvpActivity;
 import com.shileiyu.baseapp.common.net.NetWork;
+import com.shileiyu.baseapp.common.net.pool.CallPool;
 import com.shileiyu.baseapp.common.util.Util;
 
 import org.reactivestreams.Subscriber;
@@ -65,6 +66,7 @@ public class HomeActivity extends BaseMvpActivity<HomePresenter> implements Home
             R.id.get_weather_test1,
             R.id.get_weather_test2,
             R.id.get_weather_subscriber,
+            R.id.get_weather_call,
             R.id.get_weather_rx})
     public void onViewClicked(View v) {
         switch (v.getId()) {
@@ -82,11 +84,37 @@ public class HomeActivity extends BaseMvpActivity<HomePresenter> implements Home
                 break;
             case R.id.get_weather_subscriber:
                 test3();
+            case R.id.get_weather_call:
+                test4();
                 break;
             default:
                 break;
         }
 
+    }
+
+    private void test4() {
+        NetWork.getProxyApi(getTaskId()).loadWeather("北京").enqueue(new Callback<HttpResult<MyBean>>() {
+            @Override
+            public void onResponse(Call<HttpResult<MyBean>> call, Response<HttpResult<MyBean>> response) {
+                CallPool.removeCall(call);
+                Log.d(getTAG(), "onResponse");
+                mTv.setText(Util.toJson(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<HttpResult<MyBean>> call, Throwable t) {
+                CallPool.removeCall(call);
+                t.printStackTrace();
+                Log.d(getTAG(), "onFailure " + t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        CallPool.cancelCall(getTaskId());
+        super.onDestroy();
     }
 
     private void test3() {
