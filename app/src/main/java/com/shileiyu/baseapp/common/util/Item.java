@@ -18,4 +18,5 @@ public interface Item {
     String ROUTE1 = "ROUTE1";
     String MATRIX = "MATRIX";
     String HOME = "HOME";
+    String FILTER = "FILTER";
 }

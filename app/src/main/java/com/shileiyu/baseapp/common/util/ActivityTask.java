@@ -68,4 +68,15 @@ public class ActivityTask {
             return super.equals(obj);
         }
     }
+
+    public static synchronized List<BaseActivity> getList() {
+        List<BaseActivity> list = new ArrayList<>();
+        for (ActivityWeakRef w : TASK) {
+            BaseActivity e = w.get();
+            if (e != null) {
+                list.add(e);
+            }
+        }
+        return list;
+    }
 }

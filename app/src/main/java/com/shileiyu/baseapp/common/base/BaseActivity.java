@@ -3,6 +3,7 @@ package com.shileiyu.baseapp.common.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.r0adkll.slidr.Slidr;
@@ -13,6 +14,8 @@ import com.shileiyu.baseapp.common.util.ActivityTask;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -41,6 +44,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IRxAct
         ButterKnife.bind(this);
 
         initView();
+
+        List<BaseActivity> list = ActivityTask.getList();
+        for (BaseActivity a : list) {
+            Log.d(getTAG(), a.getTAG() + " window Type =" + a.getWindow().getAttributes().type);
+        }
     }
 
     protected abstract int getLayoutId();

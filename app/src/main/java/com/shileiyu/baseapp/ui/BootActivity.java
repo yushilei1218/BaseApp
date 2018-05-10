@@ -2,15 +2,23 @@ package com.shileiyu.baseapp.ui;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -24,6 +32,7 @@ import com.shileiyu.baseapp.common.bean.BeanA;
 import com.shileiyu.baseapp.common.util.Constant;
 import com.shileiyu.baseapp.common.util.Item;
 import com.shileiyu.baseapp.ui.calendar.CalendarActivity;
+import com.shileiyu.baseapp.ui.filter.MyFilterActivity;
 import com.shileiyu.baseapp.ui.glide.GlideActivity;
 import com.shileiyu.baseapp.ui.greendao.DbUpgradeActivity;
 import com.shileiyu.baseapp.ui.greendao.GreenDaoActivity;
@@ -34,6 +43,9 @@ import com.shileiyu.baseapp.ui.ocr.OcrActivity;
 import com.shileiyu.baseapp.ui.viewmodel.ViewModelActivity;
 import com.shileiyu.baseapp.ui.waterfall.WaterfallActivity;
 import com.yalantis.ucrop.UCrop;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +58,9 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 
+import static android.view.WindowManager.LayoutParams.FIRST_SUB_WINDOW;
+import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+
 public class BootActivity extends BaseActivity {
 
     @BindView(R.id.boot_grid)
@@ -57,8 +72,17 @@ public class BootActivity extends BaseActivity {
     }
 
     @Override
+    public String getTAG() {
+        return "Home";
+    }
+
+    int[] arr = new int[]{3, 2, 1, 4};
+    private int index = 0;
+    private List<Dialog> mDialogs = new ArrayList<>();
+
+    @Override
     protected void initView() {
-//2.1.0版本
+
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Item.GREEN_DAO));
         data.add(new Bean(Item.DAO_UPGRADE));
@@ -72,6 +96,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Item.ROUTE1));
         data.add(new Bean(Item.MATRIX));
         data.add(new Bean(Item.HOME));
+        data.add(new Bean(Item.FILTER));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -84,6 +109,43 @@ public class BootActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void showDialog2(String msg, int index) {
+
+
+        AlertDialog dialog = new AlertDialog.Builder(this).setMessage(msg + " " + index).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+
+        final Window window = dialog.getWindow();
+        if (window != null) {
+//            WindowManager.LayoutParams attributes = window.getAttributes();
+//            attributes.type = FIRST_SUB_WINDOW + index;
+//            window.setAttributes(attributes);
+//            window.setType(FIRST_SUB_WINDOW + index);
+        }
+
+        dialog.show();
+        mDialogs.add(dialog);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (Dialog d : mDialogs) {
+                    int type = d.getWindow().getAttributes().type;
+                    Log.d(getTAG(), "window2 Type= " + type);
+                }
+            }
+        }, 200);
     }
 
     private void openActivity(Bean item) {
@@ -124,6 +186,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Item.HOME:
                 intent = new Intent(this, HomeActivity.class);
+                break;
+            case Item.FILTER:
+                intent = new Intent(this, MyFilterActivity.class);
                 break;
             default:
                 break;
