@@ -56,6 +56,16 @@ public class MyFilterActivity extends BaseActivity {
                 } else {
                     CAdapter.notifyDataSetChanged();
                 }
+
+                boolean isA = c instanceof AItem;
+                if (isA){
+                    Compose child = c.childrenList.get(0);
+                    if (child instanceof BItem){
+                        mBLv.setVisibility(View.VISIBLE);
+                    }else {
+                        mBLv.setVisibility(View.GONE);
+                    }
+                }
             }
         }
     };
@@ -134,8 +144,9 @@ public class MyFilterActivity extends BaseActivity {
             VH holder = (VH) convertView.getTag();
             convertView.setBackgroundColor(compose.isSelect ? Color.WHITE : Color.LTGRAY);
             holder.tag.setVisibility(compose.isFocus ? View.VISIBLE : View.GONE);
-            holder.tv.setText(compose.name);
+            holder.tv.setText(compose.name());
             holder.c = compose;
+
 
             if (compose.isSelect) {
 

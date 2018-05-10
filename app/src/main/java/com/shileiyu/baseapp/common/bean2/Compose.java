@@ -51,6 +51,10 @@ public class Compose {
         return !Util.isEmpty(childrenList);
     }
 
+    public String name() {
+        return name;
+    }
+
     public static int acount = 10;
     public static int bcount = 15;
     public static int ccount = 20;

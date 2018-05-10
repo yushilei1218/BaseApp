@@ -15,4 +15,9 @@ public class AItem extends Compose {
     public AItem(int id, String name) {
         super(id, name);
     }
+
+    @Override
+    public String name() {
+        return "A=" + id;
+    }
 }
