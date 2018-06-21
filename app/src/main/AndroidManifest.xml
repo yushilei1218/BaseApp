@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.shileiyu.baseapp">
+    package="com.shileiyu.baseapp">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".common.base.BaseApp"
@@ -17,41 +17,31 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.BootActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.greendao.GreenDaoActivity">
-        </activity>
-        <activity android:name=".ui.home.HomeActivity">
-        </activity>
-        <activity android:name=".ui.waterfall.WaterfallActivity">
-        </activity>
-        <activity android:name=".ui.glide.GlideActivity">
-        </activity>
+        <activity android:name=".ui.greendao.GreenDaoActivity"></activity>
+        <activity android:name=".ui.home.HomeActivity"></activity>
+        <activity android:name=".ui.waterfall.WaterfallActivity"></activity>
+        <activity android:name=".ui.glide.GlideActivity"></activity>
 
         <meta-data
             android:name="com.shileiyu.baseapp.ui.glide.GlideModuleImpl"
-            android:value="GlideModule"/>
+            android:value="GlideModule" />
 
-        <activity android:name=".ui.calendar.CalendarActivity">
-        </activity>
+        <activity android:name=".ui.calendar.CalendarActivity"></activity>
         <activity
             android:name=".ui.lagou.LaGouActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-        <activity android:name=".ui.viewmodel.ViewModelActivity">
-        </activity>
-        <activity android:name=".ui.greendao.DbUpgradeActivity">
-        </activity>
-        <activity android:name=".ui.ocr.OcrActivity">
-        </activity>
-        <activity android:name=".ui.ucrop.UCropWrappActivity">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".ui.viewmodel.ViewModelActivity"></activity>
+        <activity android:name=".ui.greendao.DbUpgradeActivity"></activity>
+        <activity android:name=".ui.ocr.OcrActivity"></activity>
+        <activity android:name=".ui.ucrop.UCropWrappActivity"></activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- ARouter -->
         <activity android:name=".ui.arouter.ARouterActivity">
@@ -60,40 +50,38 @@
             <intent-filter>
                 <data
                     android:host="m.yushilei.com"
-                    android:scheme="http"/>
+                    android:scheme="http" />
 
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
             <intent-filter>
                 <data
                     android:host="m.yushilei.com"
-                    android:scheme="https"/>
+                    android:scheme="https" />
 
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
             <intent-filter>
                 <data
                     android:host="m.yushilei.com"
-                    android:scheme="myscheme"/>
+                    android:scheme="myscheme" />
 
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.arouter.RouterTestActivity">
-        </activity>
-        <activity android:name=".ui.matrix.MatrixActivity">
-        </activity>
-        <activity android:name=".ui.filter.MyFilterActivity">
-        </activity>
+        <activity android:name=".ui.arouter.RouterTestActivity"></activity>
+        <activity android:name=".ui.matrix.MatrixActivity"></activity>
+        <activity android:name=".ui.filter.MyFilterActivity"></activity>
+        <activity android:name=".ui.ExpandTextViewActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    tools:context=".ui.ExpandTextViewActivity">
+
+    <com.shileiyu.baseapp.common.widget.ExpandableTextView
+        android:id="@+id/act_expand_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:textColor="@color/black"
+        android:padding="20dp"
+        android:ellipsize="end"
+        android:text="智联招聘（Zhaopin）创建于1997年，是一家面向大型公司和快速发展的中小企业提供一站式专业人力资源服务，包括网络招聘、报纸招聘、校园招聘、猎头服务、招聘外包、企业培训以及人才测评等。
+在中国首创了人力资源高端杂志《首席人才官》，是拥有政府颁发的人才服务许可证和劳务派遣许可证的专业服务机构。截止2011年1月，智联招聘网平均日浏览量6800万，日均在线职位数255万以上，简历库拥有近3800余万份简历，每日增长超过30000封新简历。个人用户可以随时登录增加、修改、删除、休眠其个人简历，以保证简历库的时效性。"
+        app:min_line="4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#ff9494" />
+
+    <com.shileiyu.baseapp.common.widget.ExpandableTextView
+        android:id="@+id/act_expand_tv2"
+        android:layout_width="match_parent"
+        android:background="@color/blue"
+        android:textColor="@color/black"
+        android:text="这是一行测试文案"
+        android:layout_height="wrap_content"
+        app:min_line="2" />
+
+</LinearLayout>

@@ -19,4 +19,5 @@ public interface Item {
     String MATRIX = "MATRIX";
     String HOME = "HOME";
     String FILTER = "FILTER";
+    String EXPAND_TV = "EXPAND_TV";
 }
