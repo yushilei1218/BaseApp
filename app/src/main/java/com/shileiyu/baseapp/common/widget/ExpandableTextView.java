@@ -19,11 +19,13 @@ public class ExpandableTextView extends AppCompatTextView {
     /**
      * 是否处于展开状态
      */
-    private boolean isExpand;
+    private boolean isExpand = false;
     /**
      * 折叠时需要展示几行
      */
-    private int mLinesWhenCollapsed;
+    private int mLinesWhenCollapsed = 1;
+
+    private OnExpandStateChangeListener mListener;
 
 
     public ExpandableTextView(Context context) {
@@ -51,18 +53,21 @@ public class ExpandableTextView extends AppCompatTextView {
     }
 
     public boolean setExpand(boolean expand) {
-        if (getMaxLine() > mLinesWhenCollapsed) {
+        if (getTotalLine() > mLinesWhenCollapsed) {
             if (expand) {
                 setMaxLines(Integer.MAX_VALUE >> 2);
             } else {
                 setMaxLines(mLinesWhenCollapsed);
             }
             isExpand = expand;
+            notifyExpandStateChanged(isExpand);
+        } else {
+            notifyExpandStateChanged(true);
         }
         return false;
     }
 
-    private int getMaxLine() {
+    private int getTotalLine() {
         if (TextUtils.isEmpty(getText())) {
             return 0;
         }
@@ -82,6 +87,23 @@ public class ExpandableTextView extends AppCompatTextView {
 
     public boolean isExpand() {
         return isExpand;
+    }
+
+    private void notifyExpandStateChanged(boolean expand) {
+        if (mListener != null) {
+            mListener.onExpand(expand);
+        }
+    }
+
+    public void setListener(OnExpandStateChangeListener listener) {
+        mListener = listener;
+    }
+
+    /**
+     * TextView展开 or关闭 状态监听器
+     */
+    public interface OnExpandStateChangeListener {
+        public void onExpand(boolean expand);
     }
 
 }

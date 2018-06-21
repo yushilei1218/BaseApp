@@ -3,6 +3,7 @@ package com.shileiyu.baseapp.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shileiyu.baseapp.R;
@@ -20,6 +21,8 @@ public class ExpandTextViewActivity extends BaseActivity {
     ExpandableTextView actExpandTv;
     @BindView(R.id.act_expand_tv2)
     ExpandableTextView actExpandTv2;
+    @BindView(R.id.act_expand_tag)
+    TextView tagTv;
 
     @Override
     protected int getLayoutId() {
@@ -28,7 +31,12 @@ public class ExpandTextViewActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        actExpandTv.setListener(new ExpandableTextView.OnExpandStateChangeListener() {
+            @Override
+            public void onExpand(boolean expand) {
+                tagTv.setVisibility(expand?View.GONE:View.VISIBLE);
+            }
+        });
     }
 
 
@@ -36,11 +44,11 @@ public class ExpandTextViewActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.act_expand_tv:
-                Toast.makeText(this, "tv1"+actExpandTv.isExpand(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "tv1" + actExpandTv.isExpand(), Toast.LENGTH_SHORT).show();
                 actExpandTv.setExpand(!actExpandTv.isExpand());
                 break;
             case R.id.act_expand_tv2:
-                Toast.makeText(this, "tv1"+actExpandTv2.isExpand(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "tv1" + actExpandTv2.isExpand(), Toast.LENGTH_SHORT).show();
                 actExpandTv2.setExpand(!actExpandTv2.isExpand());
                 break;
             default:
