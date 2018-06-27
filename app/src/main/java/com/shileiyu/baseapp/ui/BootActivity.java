@@ -2,6 +2,7 @@ package com.shileiyu.baseapp.ui;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -19,9 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +86,72 @@ public class BootActivity extends BaseActivity {
     private int index = 0;
     private List<Dialog> mDialogs = new ArrayList<>();
 
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void initView() {
+        final RelativeLayout vg = findViewById(R.id.boot_web_layout);
+        final WebView webView = new WebView(this);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.addJavascriptInterface(new Object(){
+            @JavascriptInterface
+            public void show(){
+               new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       showToast("Show");
+                       ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                       webView.setLayoutParams(lp);
+                       vg.addView(webView);
+                   }
+               },1000);
+            }
+            @JavascriptInterface
+            public void click(){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showToast("click");
+                    }
+                });
+            }
+        },"handler");
+        webView.loadData("<!DOCTYPE html>\n" +
+                        "<html lang=\"en\">\n" +
+                        "\n" +
+                        "<head>\n" +
+                        "    <meta charset=\"UTF-8\">\n" +
+                        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                        "    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n" +
+                        "    <title>Document</title>\n" +
+                        "    <style>\n" +
+                        "        div {\n" +
+                        "            width: 400px;\n" +
+                        "            height: 300px;\n" +
+                        "            background-color: aqua;\n" +
+                        "        }\n" +
+                        "    </style>\n" +
+                        "    <script>\n" +
+                        "        function test1() {\n" +
+                        "            window.handler.click();\n" +
+                        "        }\n" +
+                        "        window.onload = function () {\n" +
+                        "            window.handler.show();\n" +
+                        "        }\n" +
+                        "\n" +
+                        "    </script>\n" +
+                        "</head>\n" +
+                        "\n" +
+                        "<body>\n" +
+                        "    <div>\n" +
+                        "        <strong id=\"iv\" onclick=\"test1()\">这是一个BTN</strong>\n" +
+                        "    </div>\n" +
+                        "    <p>这是一个行/r/n这是另一行 </p>\n" +
+                        "</body>\n" +
+                        "\n" +
+                        "</html>"
+                ,"text/html","UTF-8");
 
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Item.GREEN_DAO));

@@ -5,14 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
+    android:orientation="vertical"
     tools:context="com.shileiyu.baseapp.ui.BootActivity">
 
     <GridView
         android:id="@+id/boot_grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:horizontalSpacing="2dp"
         android:numColumns="3"
         android:verticalSpacing="2dp"/>
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:padding="4dp"
+        android:id="@+id/boot_web_layout"
+        android:background="@color/blue">
+
+    </RelativeLayout>
 
 </LinearLayout>
