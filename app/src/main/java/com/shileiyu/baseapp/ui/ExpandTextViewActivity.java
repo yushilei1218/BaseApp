@@ -2,6 +2,8 @@ package com.shileiyu.baseapp.ui;
 
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ public class ExpandTextViewActivity extends BaseActivity {
     ExpandableTextView actExpandTv2;
     @BindView(R.id.act_expand_tag)
     TextView tagTv;
+    @BindView(R.id.act_expand_test)
+    TextView testTv;
 
     @Override
     protected int getLayoutId() {
@@ -34,9 +38,23 @@ public class ExpandTextViewActivity extends BaseActivity {
         actExpandTv.setListener(new ExpandableTextView.OnExpandStateChangeListener() {
             @Override
             public void onExpand(boolean expand) {
-                tagTv.setVisibility(expand?View.GONE:View.VISIBLE);
+                tagTv.setVisibility(expand ? View.GONE : View.VISIBLE);
             }
         });
+        String source = "<p>任职要求：</p><p>1.刷卡机倒垃圾</p><p>2.倨傲四大剌史莱克</p><p>3.8273u8923</p><p><br/></p><p>智能要求：</p><p>2.骄傲看你的</p><p>4.脑袋快</p>";
+
+        Spanned spanned = Html.fromHtml(
+                source);
+        String s = spanned.toString();
+
+        testTv.setText(s);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Spanned spanned1 = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
+            String text = spanned1.toString();
+            testTv.append(text);
+        }
+
     }
 
 
