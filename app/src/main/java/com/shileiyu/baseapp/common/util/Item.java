@@ -20,4 +20,5 @@ public interface Item {
     String HOME = "HOME";
     String FILTER = "FILTER";
     String EXPAND_TV = "EXPAND_TV";
+    String WEB_LIST = "WEB_LIST";
 }

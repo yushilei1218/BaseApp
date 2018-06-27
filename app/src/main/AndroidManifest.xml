@@ -22,23 +22,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.greendao.GreenDaoActivity"></activity>
-        <activity android:name=".ui.home.HomeActivity"></activity>
-        <activity android:name=".ui.waterfall.WaterfallActivity"></activity>
-        <activity android:name=".ui.glide.GlideActivity"></activity>
+        <activity android:name=".ui.greendao.GreenDaoActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.waterfall.WaterfallActivity" />
+        <activity android:name=".ui.glide.GlideActivity" />
 
         <meta-data
             android:name="com.shileiyu.baseapp.ui.glide.GlideModuleImpl"
             android:value="GlideModule" />
 
-        <activity android:name=".ui.calendar.CalendarActivity"></activity>
+        <activity android:name=".ui.calendar.CalendarActivity" />
         <activity
             android:name=".ui.lagou.LaGouActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".ui.viewmodel.ViewModelActivity"></activity>
-        <activity android:name=".ui.greendao.DbUpgradeActivity"></activity>
-        <activity android:name=".ui.ocr.OcrActivity"></activity>
-        <activity android:name=".ui.ucrop.UCropWrappActivity"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ui.viewmodel.ViewModelActivity" />
+        <activity android:name=".ui.greendao.DbUpgradeActivity" />
+        <activity android:name=".ui.ocr.OcrActivity" />
+        <activity android:name=".ui.ucrop.UCropWrappActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -78,10 +78,11 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.arouter.RouterTestActivity"></activity>
-        <activity android:name=".ui.matrix.MatrixActivity"></activity>
-        <activity android:name=".ui.filter.MyFilterActivity"></activity>
-        <activity android:name=".ui.ExpandTextViewActivity"></activity>
+        <activity android:name=".ui.arouter.RouterTestActivity" />
+        <activity android:name=".ui.matrix.MatrixActivity" />
+        <activity android:name=".ui.filter.MyFilterActivity" />
+        <activity android:name=".ui.ExpandTextViewActivity" />
+        <activity android:name=".ui.WebListActivity"></activity>
     </application>
 
 </manifest>

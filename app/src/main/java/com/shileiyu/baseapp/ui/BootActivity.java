@@ -94,21 +94,22 @@ public class BootActivity extends BaseActivity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.addJavascriptInterface(new Object(){
+        webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
-            public void show(){
-               new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       showToast("Show");
-                       ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                       webView.setLayoutParams(lp);
-                       vg.addView(webView);
-                   }
-               },1000);
+            public void show() {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showToast("Show");
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        webView.setLayoutParams(lp);
+                        vg.addView(webView);
+                    }
+                }, 1000);
             }
+
             @JavascriptInterface
-            public void click(){
+            public void click() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -116,7 +117,7 @@ public class BootActivity extends BaseActivity {
                     }
                 });
             }
-        },"handler");
+        }, "handler");
         webView.loadData("<!DOCTYPE html>\n" +
                         "<html lang=\"en\">\n" +
                         "\n" +
@@ -151,7 +152,7 @@ public class BootActivity extends BaseActivity {
                         "</body>\n" +
                         "\n" +
                         "</html>"
-                ,"text/html","UTF-8");
+                , "text/html", "UTF-8");
 
         List<Bean> data = new ArrayList<>();
         data.add(new Bean(Item.GREEN_DAO));
@@ -168,6 +169,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Item.HOME));
         data.add(new Bean(Item.FILTER));
         data.add(new Bean(Item.EXPAND_TV));
+        data.add(new Bean(Item.WEB_LIST));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -263,6 +265,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Item.EXPAND_TV:
                 intent = new Intent(this, ExpandTextViewActivity.class);
+                break;
+            case Item.WEB_LIST:
+                intent = new Intent(this, WebListActivity.class);
                 break;
             default:
                 break;
