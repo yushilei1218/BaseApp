@@ -167,6 +167,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Item.MATRIX));
         data.add(new Bean(Item.HOME));
         data.add(new Bean(Item.FILTER));
+        data.add(new Bean(Item.EXPAND_TV));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -259,6 +260,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Item.FILTER:
                 intent = new Intent(this, MyFilterActivity.class);
+                break;
+            case Item.EXPAND_TV:
+                intent = new Intent(this, ExpandTextViewActivity.class);
                 break;
             default:
                 break;
