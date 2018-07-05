@@ -170,6 +170,7 @@ public class BootActivity extends BaseActivity {
         data.add(new Bean(Item.FILTER));
         data.add(new Bean(Item.EXPAND_TV));
         data.add(new Bean(Item.WEB_LIST));
+        data.add(new Bean(Item.WEB_ROUND));
 
         mBootGrid.setAdapter(new Adapter(data));
 
@@ -268,6 +269,9 @@ public class BootActivity extends BaseActivity {
                 break;
             case Item.WEB_LIST:
                 intent = new Intent(this, WebListActivity.class);
+                break;
+            case Item.WEB_ROUND:
+                intent = new Intent(this, WebActivity.class);
                 break;
             default:
                 break;

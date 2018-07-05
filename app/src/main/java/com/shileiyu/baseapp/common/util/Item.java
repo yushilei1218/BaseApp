@@ -21,4 +21,5 @@ public interface Item {
     String FILTER = "FILTER";
     String EXPAND_TV = "EXPAND_TV";
     String WEB_LIST = "WEB_LIST";
+    String WEB_ROUND = "WEB_ROUND";
 }

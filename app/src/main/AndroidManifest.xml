@@ -82,7 +82,8 @@
         <activity android:name=".ui.matrix.MatrixActivity" />
         <activity android:name=".ui.filter.MyFilterActivity" />
         <activity android:name=".ui.ExpandTextViewActivity" />
-        <activity android:name=".ui.WebListActivity"></activity>
+        <activity android:name=".ui.WebListActivity" />
+        <activity android:name=".ui.WebActivity"></activity>
     </application>
 
 </manifest>
