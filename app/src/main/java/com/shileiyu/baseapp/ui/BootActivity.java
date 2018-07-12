@@ -89,6 +89,8 @@ public class BootActivity extends BaseActivity {
     @SuppressLint("JavascriptInterface")
     @Override
     protected void initView() {
+        //just test 1
+
         final RelativeLayout vg = findViewById(R.id.boot_web_layout);
         final WebView webView = new WebView(this);
         WebSettings settings = webView.getSettings();
