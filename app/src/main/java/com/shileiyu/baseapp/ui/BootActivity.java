@@ -95,6 +95,8 @@ public class BootActivity extends BaseActivity {
 
         //Master add
 
+        //Test2 add
+
         final RelativeLayout vg = findViewById(R.id.boot_web_layout);
         final WebView webView = new WebView(this);
         WebSettings settings = webView.getSettings();
