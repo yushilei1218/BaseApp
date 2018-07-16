@@ -21,5 +21,7 @@ public class WebActivity extends BaseActivity {
         WebView web = (WebView) findViewById(R.id.web);
 
         web.loadUrl("http://bang.tx3.163.com");
+
+        //bugfix 7
     }
 }
